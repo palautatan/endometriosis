@@ -14,3 +14,4 @@ Endometriosis is an estrogen-dependent condition that affects nearly 10% women o
 We propose to utilize a publicly available microarray data containing archived endometrial samples from women with different stages of endometriosis and derive gene expression signatures.  We will use statistical techniques applicable to the analysis of high dimensional genomic data learnt from and beyond the course. In addition to incorporating the familiar methods listed below, we will research novel methods that we plan to incorporate into our analysis.
 
 Reference Paper: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4239429/
+Supplementary material: http://press.endocrine.org/doi/suppl/10.1210/EN.2014-1490/suppl_file/en-14-1490.pdf
