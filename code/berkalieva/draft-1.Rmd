@@ -9,18 +9,47 @@ output: pdf_document
 library(ggplot2)
 library(dplyr)
 
-# read in probeset data
+# read in PROBESET data
 small_subset <- read.csv("../../data/clean/small_subset.csv")
 probeset <- small_subset[,6:105]
 
-# read in gene data
+# read in GENE data
+normal_gene <- read.csv("../../data/csv/normal.csv")
+mild_gene <- read.csv("../../data/csv/minimal-mild.csv")
+severe_gene <- read.csv("../../data/csv/moderate-severe.csv")
 
+# create a subset
+ix <- sample(x=1:ncol(normal_gene), size=100, replace=FALSE)
+normal_subset <- normal_gene[,c(ix)]
+mild_subset <- mild_gene[,c(ix)]
+severe_subset <- severe_gene[,c(ix)]
+genes <- rbind(normal_subset, mild_subset, severe_subset)
+
+# check dimensions
+dim(probeset)
+dim(genes)
 ``` 
 
-### Matching genes with probesets
+### Matching genes with probesets: correlation
 
 ``` {r}
+# obtain correlation for all values between the two datasets
+match_genes <- apply(probeset, 1, function(x) {
+  which.max(cor(x, t(genes)))
+})
 
+# check correlation
+cors <- cor(probeset[1:105, 1:100], genes[1:105, 1:100])
+
+# check that the correlation is close to 1
+cors <- apply(cbind(probeset, 
+                    genes[match_genes, ]), 1, function(x) {
+  cor(x[1:100], x[101:200])
+})
+
+# check correlation extremes
+min(cors)
+max(cors)
 ```
 
 
