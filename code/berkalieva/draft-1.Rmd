@@ -15,7 +15,7 @@ probeset <- small_subset[,6:105]
 
 # read in gene data
 
-```
+``` 
 
 ### Matching genes with probesets
 
