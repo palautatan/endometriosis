@@ -11,13 +11,13 @@ library(ggplot2)
 library(dplyr)
 
 # read in PROBESET data
-small_subset <- read.csv("../../data/clean/small_subset.csv")
+small_subset <- read.csv("../../data/genbank/clean-csv/small_subset.csv")
 probeset <- small_subset[,6:105]
 
 # read in GENE data
-normal_gene <- read.csv("../../data/csv/normal.csv")
-mild_gene <- read.csv("../../data/csv/minimal-mild.csv")
-severe_gene <- read.csv("../../data/csv/moderate-severe.csv")
+normal_gene <- read.csv("../../data/figshare/clean-csv/normal.csv")
+mild_gene <- read.csv("../../data/figshare/clean-csv/minimal-mild.csv")
+severe_gene <- read.csv("../../data/figshare/clean-csv/moderate-severe.csv")
 
 # create a subset
 ix <- sample(x=1:ncol(normal_gene), size=100, replace=FALSE)
@@ -83,7 +83,7 @@ max(cors)
 ```
 
 
-### Exploratory data analysis
+### Exploratory data analysis on GENE dates
 
 This is what the **GENES** look like:
 ``` {r}
@@ -95,7 +95,7 @@ boxplot(genes,
 boxplot(genes[,1:5],
         main = "Close up of First Five Genes")
 ```
-
+ 
 This is what the **SAMPLES** look like:
 ``` {r}
 # explore current data of SAMPLES
@@ -104,6 +104,31 @@ boxplot(t(genes),
 
 # subset
 boxplot(t(genes)[,1:5],
+        main = "Close up of First Five Samples")
+```
+
+
+### Exploratory data analysis on PROBESET dates
+
+This is what the **GENES/columns** look like:
+``` {r}
+# explore current data of GENES
+boxplot(probeset,
+        main = "Distribution of Genes Expression Data")
+
+# subset
+boxplot(probeset[,1:5],
+        main = "Close up of First Five Genes")
+```
+ 
+This is what the **SAMPLES/rows** look like:
+``` {r}
+# explore current data of SAMPLES
+boxplot(t(probeset),
+        main = "Distribution of Samples")
+
+# subset
+boxplot(t(probeset)[,1:5],
         main = "Close up of First Five Samples")
 ```
 
