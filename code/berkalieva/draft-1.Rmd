@@ -52,6 +52,34 @@ min(cors)
 max(cors)
 ```
 
+Let's do this one more time to make sure it isn't the random sampling:
+``` {r}
+# create a new gene subset
+ix_new <- sample(x=1:ncol(normal_gene), size=100, replace=FALSE)
+normal_subset_2 <- normal_gene[,c(ix_new)]
+mild_subset_2 <- mild_gene[,c(ix_new)]
+severe_subset_2 <- severe_gene[,c(ix_new)]
+genes_v2 <- rbind(normal_subset, mild_subset, severe_subset)
+
+# obtain correlation for all values between the two datasets
+match_genes <- apply(probeset, 1, function(x) {
+  which.max(cor(x, t(genes_v2)))
+})
+
+# check correlation
+cors <- cor(probeset[1:105, 1:100], genes_v2[1:105, 1:100])
+
+# check that the correlation is close to 1
+cors <- apply(cbind(probeset, 
+                    genes_v2[match_genes, ]), 1, function(x) {
+  cor(x[1:100], x[101:200])
+})
+
+# check correlation extremes
+min(cors)
+max(cors)
+```
+
 
 ### Exploratory data analysis
 
