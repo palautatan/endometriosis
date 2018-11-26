@@ -4,6 +4,7 @@ author: "Asem Berkalieva"
 date: "11/25/2018"
 output: pdf_document
 --- 
+### Reading in the two datasets 
 
 ``` {r}
 library(ggplot2)
@@ -29,6 +30,7 @@ genes <- rbind(normal_subset, mild_subset, severe_subset)
 dim(probeset)
 dim(genes)
 ``` 
+
 
 ### Matching genes with probesets: correlation
 
@@ -76,21 +78,59 @@ cors <- apply(cbind(probeset,
 })
 
 # check correlation extremes
-min(cors)
+min(cors) 
 max(cors)
 ```
 
 
 ### Exploratory data analysis
 
+This is what the **GENES** look like:
+``` {r}
+# explore current data of GENES
+boxplot(genes,
+        main = "Distribution of Genes Expression Data")
 
+# subset
+boxplot(genes[,1:5],
+        main = "Close up of First Five Genes")
+```
 
+This is what the **SAMPLES** look like:
+``` {r}
+# explore current data of SAMPLES
+boxplot(t(genes),
+        main = "Distribution of Samples")
 
+# subset
+boxplot(t(genes)[,1:5],
+        main = "Close up of First Five Samples")
+```
 
 
 ### Differential expression
 
+``` {r t-test}
+# split into two groups
+mild <- as.matrix(mild_subset)
+severe <- as.matrix(severe_subset)
 
+# run Wilcoxon-rank sum test for each gene
+pvals <- c()
+for (row in seq(nrow(mild_subset))) {
+  p <- wilcox.test(x = mild[row,], severe[row,],
+                   exact = FALSE)$p.value
+  pvals <- c(pvals, p)
+}
+
+# adjust p-values using false-discovery rate method
+pvals <- p.adjust(pvals, method = "fdr")
+
+# return top 10 expressianlly dif genes (10 smallest p-values)
+gene_pvals <- colnames(mild_subset)
+gene_pvals <- data.frame(cbind(gene_pvals, pvals))
+gene_pvals_ordered <- gene_pvals[order(gene_pvals$pvals), , drop = FALSE]
+```
 
 
 
