@@ -1,0 +1,78 @@
+---
+title: "fgene-code-copy"
+author: "Asem Berkalieva"
+date: "11/27/2018"
+output: pdf_document
+---
+
+``` {r}
+# load in libraries
+library(gcrma)
+library(limma)
+
+# read in PROBESET data
+small_subset <- read.csv("../../data/genbank/clean-csv/small_subset.csv")
+probeset <- small_subset[,6:105]
+```
+
+### Exploratory data analysis on PROBESET dates
+
+This is what the **GENES/columns** look like:
+``` {r}
+# explore current data of GENES
+boxplot(probeset,
+        main = "Distribution of Genes Expression Data")
+
+# subset
+boxplot(probeset[,1:5],
+        main = "Close up of First Five Genes")
+```
+
+This is what the **SAMPLES/rows** look like:
+``` {r}
+# explore current data of SAMPLES
+boxplot(t(probeset),
+        main = "Distribution of Samples")
+
+# subset
+boxplot(t(probeset)[,1:5],
+        main = "Close up of First Five Samples")
+```
+
+### Log transform the data
+
+``` {r log-transform-normalize, fig.align = "center"}
+# log transform the data
+scaled_log <- log(probeset)
+
+# view the new spread
+boxplot(scaled_log,
+        main = "Log Transformed Distributions of Probesets")
+```
+
+### Normalize the data
+
+``` {r}
+# normalize the data
+normalized <- normalizeBetweenArrays(probeset, method = "quantile")
+normalize_loess <- normalizeBetweenArrays(probeset, method = "cyclicloess")
+
+# transform to data frame for easy plotting
+non_normalized <- as.data.frame(probeset)
+normalized <- as.data.frame(normalized)
+normalized_loess <- as.data.frame(normalize_loess)
+
+# create boxplots (for ALL samples)
+par(mfrow=c(1,3))
+boxplot(non_normalized,
+        main = "Non-normalized")
+boxplot(normalized,
+        main = "Normalized")
+boxplot(normalized_loess,
+        main = "Normalized LOESS")
+
+# look at the samples
+boxplot(t(normalized))
+boxplot(t(normalized_loess))
+```
+
