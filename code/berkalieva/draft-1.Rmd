@@ -5,7 +5,7 @@ date: "11/25/2018"
 output: pdf_document
 --- 
 ### Reading in the two datasets 
-
+ 
 ``` {r}
 library(ggplot2)
 library(dplyr)
@@ -29,7 +29,7 @@ genes <- rbind(normal_subset, mild_subset, severe_subset)
 # check dimensions
 dim(probeset)
 dim(genes)
-``` 
+```
 
 
 ### Matching genes with probesets: correlation
@@ -131,6 +131,14 @@ boxplot(t(probeset),
 boxplot(t(probeset)[,1:5],
         main = "Close up of First Five Samples")
 ```
+
+
+### Normalization (work with SMALL SUBSET first)
+
+``` {r}
+cut_1 <- read.csv("../../data/genbank/subsets-for-control-removal/cut_1.csv")
+```
+
 
 
 ### Differential expression

@@ -4,7 +4,7 @@ author: "Asem Berkalieva"
 date: "11/27/2018"
 output: pdf_document
 ---
-
+ 
 ``` {r}
 # load in libraries
 library(gcrma)
