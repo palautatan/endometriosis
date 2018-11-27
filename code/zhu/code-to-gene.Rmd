@@ -1,0 +1,24 @@
+---
+title: "probe to gene"
+output: html_document
+---
+
+```{r}
+subset <- read.csv("../../data/genbank/clean-csv/small_subset.csv")[,-1]
+```
+
+We can read in the columns.
+
+```{r}
+colnames(subset)[-c(1:4)]
+```
+
+We are looking for `library("hgu133plus2.db")`.
+https://bioconductor.org/packages/release/data/annotation/html/hgu133plus2.db.html
+
+This is the code they used. Try to see how you can alter it to fit our data.
+
+```{r}
+SYMBOL <- data.frame(SYMBOL=sapply(contents(hgu133plus2SYMBOL), paste, collapse=", ") )
+myData_Normalized_Expr_Filt_Symbol <- merge(SYMBOL, myData_Normalized_Expr_Filt, by.x=0, by.y=0, all.y=T) row.names(myData_Normalized_Expr_Filt_Symbol) <- myData_Normalized_Expr_Filt_Symbol[,1] myData_Normalized_Expr_Filt_Symbol <- myData_Normalized_Expr_Filt_Symbol[,-1]
+```
