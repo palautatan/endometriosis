@@ -4,7 +4,7 @@ author: "Asem Berkalieva"
 date: "11/27/2018"
 output: pdf_document
 ---
- 
+
 ``` {r}
 # load in libraries
 library(gcrma)
@@ -39,7 +39,11 @@ boxplot(t(probeset)[,1:5],
         main = "Close up of First Five Samples")
 ```
 
+\newpage
+
 ### Log transform the data
+
+I have log transformed the data to see if it helps... it doesn't.
 
 ``` {r log-transform-normalize, fig.align = "center"}
 # log transform the data
@@ -50,29 +54,37 @@ boxplot(scaled_log,
         main = "Log Transformed Distributions of Probesets")
 ```
 
+\newpage
+
 ### Normalize the data
 
 ``` {r}
 # normalize the data
-normalized <- normalizeBetweenArrays(probeset, method = "quantile")
-normalize_loess <- normalizeBetweenArrays(probeset, method = "cyclicloess")
+normalized_quantile <- normalizeBetweenArrays(probeset, method = "quantile")
+normalized_loess <- normalizeBetweenArrays(probeset, method = "cyclicloess")
 
 # transform to data frame for easy plotting
 non_normalized <- as.data.frame(probeset)
-normalized <- as.data.frame(normalized)
-normalized_loess <- as.data.frame(normalize_loess)
+normalized_quantile <- as.data.frame(normalized_quantile)
+normalized_loess <- as.data.frame(normalized_loess)
 
-# create boxplots (for ALL samples)
+# look at the PROBESETS
 par(mfrow=c(1,3))
 boxplot(non_normalized,
         main = "Non-normalized")
-boxplot(normalized,
-        main = "Normalized")
+boxplot(normalized_quantile,
+        main = "Normalized Quantile")
 boxplot(normalized_loess,
         main = "Normalized LOESS")
 
-# look at the samples
-boxplot(t(normalized))
-boxplot(t(normalized_loess))
+# look at the SAMPLES
+par(mfrow=c(1,3))
+boxplot(t(probeset))
+boxplot(t(normalized_quantile),
+          main = "Samples with Normalize Quantile")
+boxplot(t(normalized_loess),
+        main = "Samples with Normalize LOESS")
 ```
+
+
 
