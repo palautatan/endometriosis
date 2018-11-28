@@ -3,22 +3,97 @@ title: "probe to gene"
 output: html_document
 ---
 
+Download:
+https://bioconductor.org/packages/release/data/annotation/html/hgu133plus2.db.html
+
 ```{r}
-subset <- read.csv("../../data/genbank/clean-csv/small_subset.csv")[,-1]
+# if (!requireNamespace("BiocManager", quietly = TRUE))
+#     install.packages("BiocManager")
+# BiocManager::install("hgu133plus2.db", version = "3.8")
+library("hgu133plus2.db")
+```
+
+I am going to read in one of the cuts.
+
+```{r}
+subset <- read.csv("../../data/genbank/removed-controls/cut_1.csv")[,-1]
+head(subset)
 ```
 
 We can read in the columns.
 
 ```{r}
-colnames(subset)[-c(1:4)]
+probe_names <- colnames(subset)[-c(1:4)]
+probe_names <- gsub("^X", "", probe_names)
+head(probe_names)
 ```
 
-We are looking for `library("hgu133plus2.db")`.
-https://bioconductor.org/packages/release/data/annotation/html/hgu133plus2.db.html
 
-This is the code they used. Try to see how you can alter it to fit our data.
+I'm going to create a dataframe for translation.
 
 ```{r}
-SYMBOL <- data.frame(SYMBOL=sapply(contents(hgu133plus2SYMBOL), paste, collapse=", ") )
-myData_Normalized_Expr_Filt_Symbol <- merge(SYMBOL, myData_Normalized_Expr_Filt, by.x=0, by.y=0, all.y=T) row.names(myData_Normalized_Expr_Filt_Symbol) <- myData_Normalized_Expr_Filt_Symbol[,1] myData_Normalized_Expr_Filt_Symbol <- myData_Normalized_Expr_Filt_Symbol[,-1]
+test <- data.frame(cbind(names(contents(hgu133plus2SYMBOL)), unlist(contents(hgu133plus2SYMBOL))))
+rownames(test) <- 1:nrow(test)
+test[,2] <- as.character(test[,2])
+
+indices <- sapply(probe_names, function(x) which(test[,1]==x))
+probe_to_gene <- data.frame(cbind(probe_names, unlist(test[,2])[indices]))
+names(probe_to_gene) <- c("probe", "gene")
+```
+
+
+Are the genes unique?
+
+```{r}
+dim(probe_to_gene)
+```
+
+```{r}
+length(as.character(unique(probe_to_gene[,2])))
+```
+
+```{r}
+abs(length(as.character(unique(probe_to_gene[,2]))) - dim(probe_to_gene)[1])
+```
+
+
+
+```{r}
+duplicate_genes <- names(which(table(probe_to_gene[,2])>1))
+duplicate_genes
+```
+
+```{r}
+library(dplyr)
+the_duplicate_rows <- probe_to_gene[which(probe_to_gene[,2] %in% duplicate_genes),] %>% arrange(gene)
+head(the_duplicate_rows)
+```
+
+All of these have "twins" except FBMLIM1 where there are 3 matches.
+
+```{r}
+table(as.character(the_duplicate_rows$gene))
+```
+
+We know which probes are measuring the same thing now.
+
+```{r}
+# col_ix <- which(probe_names %in% as.character(the_duplicate_rows[,1])) + 4
+# col_ix
+```
+
+
+```{r}
+k <- 1
+k_gene <- as.character(unique(the_duplicate_rows[,2])[k])
+k_probes <- as.character(the_duplicate_rows[which(the_duplicate_rows[,2] == k_gene), 1])
+```
+
+The paper averaged between 2.
+
+```{r}
+k_cols <- which(probe_names %in% k_probes) + 4
+compare <- subset[,k_cols] %>% mutate(mean=(X1557418_at+X1557419_a_at)/2,
+                           diff=X1557419_a_at-X1557418_at)
+hist(compare$diff)
 ```
