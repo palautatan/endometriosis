@@ -1,0 +1,57 @@
+---
+title: "collapseRows"
+author: "Hengcheng Zhu"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+subset <- read.csv("C:/Users/ZHC/Desktop/small_subset.csv")[,-1]
+```
+
+```{r}
+library("hgu133plus2.db")
+probe_names <- colnames(subset)[-c(1:4)]
+probe_names <- gsub("^X", "", probe_names)
+test <- data.frame(cbind(names(contents(hgu133plus2SYMBOL)), unlist(contents(hgu133plus2SYMBOL))))
+rownames(test) <- 1:nrow(test)
+test[,2] <- as.character(test[,2])
+```
+Matching
+
+```{r}
+indices <- sapply(probe_names, function(x) which(test[,1]==x))
+probe_to_gene <- data.frame(cbind(probe_names, unlist(test[,2])[indices]))
+names(probe_to_gene) <- c("probe", "gene")
+```
+
+```{r}
+dim(probe_to_gene)
+```
+       
+```{r}
+length(unique(probe_to_gene[,2]))
+```
+
+
+```{r}
+length(na.omit(probe_to_gene[,2]))
+```
+
+```{r}
+duplicate_genes <- names(which(table(probe_to_gene[,2])>1))
+duplicate_genes
+```
+
+For this small dataset,there are no duplicate genes.      
+       
+
+
+
+
+
+
+
