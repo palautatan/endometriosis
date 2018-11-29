@@ -3,6 +3,7 @@ title: "probe to gene"
 output: html_document
 ---
 
+# Exploration Within Just This Cut
 Download:
 https://bioconductor.org/packages/release/data/annotation/html/hgu133plus2.db.html
 
@@ -42,20 +43,16 @@ names(probe_to_gene) <- c("probe", "gene")
 ```
 
 
-Are the genes unique?
-
 ```{r}
 dim(probe_to_gene)
 ```
 
+**Notably, 187 of these are NA.**
 ```{r}
-length(as.character(unique(probe_to_gene[,2])))
+length(which(is.na(probe_to_gene[,2])))
 ```
 
-```{r}
-abs(length(as.character(unique(probe_to_gene[,2]))) - dim(probe_to_gene)[1])
-```
-
+Of the genes that are showing up, are the genes unique? I will check which have greater than 1 count on the table.
 
 
 ```{r}
@@ -77,11 +74,6 @@ table(as.character(the_duplicate_rows$gene))
 
 We know which probes are measuring the same thing now.
 
-```{r}
-# col_ix <- which(probe_names %in% as.character(the_duplicate_rows[,1])) + 4
-# col_ix
-```
-
 
 ```{r}
 k <- 1
@@ -96,4 +88,156 @@ k_cols <- which(probe_names %in% k_probes) + 4
 compare <- subset[,k_cols] %>% mutate(mean=(X1557418_at+X1557419_a_at)/2,
                            diff=X1557419_a_at-X1557418_at)
 hist(compare$diff)
+```
+
+
+
+# Exploration of all cuts
+What needs to happen now is that I detail which genes show up in each of the csv's. I need to record which csv they are in and how many times they show up within that csv. That way, I can make sure that the genes in our final dataset are truly unique.
+
+```{r}
+all_cuts <- list.files("../../data/genbank/removed-controls", full.names=TRUE)
+all_cuts
+```
+
+I'm going to get the genes within each of these.
+
+```{r}
+length(unlist(contents(hgu133plus2SYMBOL)))
+```
+
+```{r}
+length(names(contents(hgu133plus2SYMBOL)))
+```
+
+```{r}
+subset_path <- all_cuts[1]
+```
+
+
+
+```{r}
+get_genes <- function(subset_path) {
+  require("hgu133plus2.db")
+  subset <- read.csv(subset_path)[,-1]
+  
+  probe_names <- colnames(subset)[-c(1:4)]
+  probe_names <- gsub("^X", "", probe_names)
+  
+  test <- cbind(names(contents(hgu133plus2SYMBOL)), unlist(contents(hgu133plus2SYMBOL)))
+  test <- data.frame(test)
+  rownames(test) <- 1:nrow(test)
+  test[,2] <- as.character(test[,2])
+
+  indices <- lapply(probe_names, function(x) which(test[,1]==x))
+  indices <- as.numeric(as.character(indices))
+  probe_to_gene <- data.frame(cbind(probe_names, unlist(test[,2])[indices], 1:length(indices)))
+  names(probe_to_gene) <- c("probe", "gene", "ix")
+  
+  probe_to_gene$gene <- ifelse(is.na(probe_to_gene$gene), paste0("probe_",as.character(probe_to_gene$probe)), as.character(probe_to_gene$gene))
+  probe_to_gene
+}
+```
+
+```{r}
+main <- function(subset_path) {
+  gene_df <- get_genes(subset_path)
+  
+  genes   <- data.frame(table(gene_df[,2]))
+  names(genes) <- c("gene", "freq")
+  genes$gene <- as.character(genes$gene)
+  
+  gene_df <- merge(gene_df, genes, by="gene")
+  
+  gene_df <- data.frame(cbind(gene_df, file=subset_path))
+  # gene_df <- cbind(gene_names=row.names(genes), genes)
+  # row.names(genes) <- 1:nrow(genes)
+  # names(genes)[2] <- "count"
+  gene_df
+}
+```
+
+I am going to count the genes for each of the cuts.
+
+```{r}
+counts <- lapply(all_cuts, main)
+```
+
+We want to make sure that our output has the same number of rows.
+
+```{r}
+sum(unlist(lapply(counts, nrow)))
+```
+
+```{r}
+counts[[1]]
+```
+
+```{r}
+this_csv <- "../../data/genbank/gene_summary.csv"
+write.table(counts[[1]], this_csv, sep=",", col.names=TRUE, append=TRUE)
+for (k in 2:length(counts)) {
+  write.table(counts[[k]], this_csv, sep=",", col.names=FALSE, append=TRUE)
+}
+```
+
+Our output does have the same number of rows.
+
+```{r}
+all_genes <- read.csv(this_csv, row.names=NULL)[,-1]
+nrow(all_genes)
+```
+
+I wrote these all to a csv because R crashes with `do.call()`.
+
+# Determining which genes are duplicated
+I am going to determine now which genes have between duplicated throughout the entire dataset.
+
+```{r}
+all_genes <- read.csv(this_csv, row.names=NULL)[,-1]
+all_genes <- all_genes %>% arrange(gene)
+head(all_genes)
+```
+
+```{r}
+dim(all_genes)
+```
+
+```{r}
+length(unique(all_genes$gene))
+```
+
+We have quite a few probes/genes that are duplicated.
+
+```{r}
+duplicate_all_genes <- names(which(table(all_genes[,1])>1))
+duplicate_all_rows  <- all_genes[which(all_genes[,1] %in% duplicate_all_genes),] %>% arrange(gene)
+head(duplicate_all_rows)
+```
+
+# We have locations of all the duplicate genes between cuts
+I now want to figure out the best way to average over the genes between cuts. It would be really helpful for me to know what the index is for each of the genes for each of the cuts. I need to store this data in a convenient way. I guess csv.
+
+```{r}
+for (k in 1:length(unique(duplicate_all_rows$gene))) {
+  
+  ix <- which(duplicate_all_rows$gene == unique(duplicate_all_rows$gene)[k])
+  gene_df <- duplicate_all_rows[ix,]
+  
+  measurements_same_gene <- subset[,1:4]
+  for (j in 1:nrow(gene_df)) {
+    probe_name <- as.character(gene_df$probe[j])
+    this_probe <- read.csv(as.character(gene_df$file[j]))[,-1][,(gene_df$ix[j]+4)]
+    measurements_same_gene <- cbind(measurements_same_gene, this_probe)
+    names(measurements_same_gene)[j+4] <- paste0("p", probe_name)
+  }
+  
+  
+  measurements_same_gene <- cbind(measurements_same_gene, apply(measurements_same_gene[,5:(4+j)], 1, sum) / nrow(gene_df))
+  names(measurements_same_gene)[5+nrow(gene_df)] <- as.character(gene_df$gene[1])
+  
+  file_name <- paste0("../../data/genbank/avg-genes/", as.character(gene_df$gene[1]), ".csv")
+  write.csv(measurements_same_gene, file_name)
+  
+}
 ```

@@ -1,0 +1,149 @@
+"","sample","tissue","endometriosis","severity","p225957_at","p225956_at","p235556_at","CREBRF"
+"1","GSM1256653","Early Secretory Endometrial tissue","Endometriosis","Moderate/Severe",7.156793,8.069879,5.348429,6.858367
+"2","GSM1256654","Early Secretory Endometrial tissue","Endometriosis","Moderate/Severe",6.367441,6.287848,3.614268,5.42318566666667
+"3","GSM1256655","Proliferative Endometrial tissue","Endometriosis","Moderate/Severe",7.142097,6.677797,3.850723,5.89020566666667
+"4","GSM1256656","Mid-Secretory Endometrial tissue","Endometriosis","Moderate/Severe",7.966961,7.936576,5.858365,7.25396733333333
+"5","GSM1256657","Early Secretory Endometrial tissue","Endometriosis","Moderate/Severe",6.441976,7.965331,3.836045,6.08111733333333
+"6","GSM1256658","Mid-Secretory Endometrial tissue","Endometriosis","Moderate/Severe",7.012102,7.916456,4.906448,6.61166866666667
+"7","GSM1256659","Mid-Secretory Endometrial tissue","Endometriosis","Moderate/Severe",7.455449,7.094308,4.931912,6.49388966666667
+"8","GSM1256660","Proliferative Endometrial tissue","Endometriosis","Moderate/Severe",6.968924,7.278966,4.980374,6.40942133333333
+"9","GSM1256661","Early Secretory Endometrial tissue","Endometriosis","Moderate/Severe",7.828783,8.10063,5.536997,7.15547
+"10","GSM1256662","Mid-Secretory Endometrial tissue","Endometriosis","Moderate/Severe",7.222316,7.903085,3.981726,6.36904233333333
+"11","GSM1256663","Proliferative Endometrial tissue","Endometriosis","Moderate/Severe",5.765838,6.328454,3.031479,5.04192366666667
+"12","GSM1256664","Proliferative Endometrial tissue","Endometriosis","Moderate/Severe",6.319426,7.524789,4.985471,6.276562
+"13","GSM1256665","Mid-Secretory Endometrial tissue","Endometriosis","Moderate/Severe",7.9257,8.990791,4.589096,7.168529
+"14","GSM1256666","Proliferative Endometrial tissue","Endometriosis","Moderate/Severe",6.463584,6.703954,4.009754,5.725764
+"15","GSM1256667","Early Secretory Endometrial tissue","Endometriosis","Moderate/Severe",7.767171,8.134197,5.206584,7.035984
+"16","GSM1256668","Mid-Secretory Endometrial tissue","Endometriosis","Moderate/Severe",8.910292,9.146877,6.175606,8.07759166666667
+"17","GSM1256669","Mid-Secretory Endometrial tissue","Endometriosis","Moderate/Severe",8.815082,9.491795,6.242066,8.182981
+"18","GSM1256670","Mid-Secretory Endometrial tissue","Endometriosis","Moderate/Severe",6.822421,7.643576,3.599541,6.021846
+"19","GSM1256671","Mid-Secretory Endometrial tissue","Endometriosis","Moderate/Severe",7.438368,8.205354,5.167825,6.93718233333333
+"20","GSM1256672","Mid-Secretory Endometrial tissue","Endometriosis","Minimal/Mild",9.599034,9.475209,6.589683,8.554642
+"21","GSM1256673","Proliferative Endometrial tissue","Endometriosis","Moderate/Severe",7.271585,6.383443,4.093934,5.91632066666667
+"22","GSM1256674","Mid-Secretory Endometrial tissue","Endometriosis","Minimal/Mild",7.821188,7.226195,3.253016,6.100133
+"23","GSM1256675","Mid-Secretory Endometrial tissue","Endometriosis","Moderate/Severe",8.553625,7.533632,5.190117,7.092458
+"24","GSM1256676","Mid-Secretory Endometrial tissue","Endometriosis","Moderate/Severe",6.454642,5.360645,3.46623,5.093839
+"25","GSM1256677","Mid-Secretory Endometrial tissue","Endometriosis","Minimal/Mild",8.579031,8.326192,4.672087,7.19243666666667
+"26","GSM1256678","Proliferative Endometrial tissue","Endometriosis","Moderate/Severe",7.403971,7.062905,4.743113,6.40332966666667
+"27","GSM1256679","Proliferative Endometrial tissue","Endometriosis","Moderate/Severe",6.237022,5.360134,4.018773,5.20530966666667
+"28","GSM1256680","Proliferative Endometrial tissue","Endometriosis","Moderate/Severe",7.954455,7.547183,4.842942,6.78152666666667
+"29","GSM1256681","Early Secretory Endometrial tissue","Endometriosis","Moderate/Severe",8.779662,8.667306,5.76248,7.73648266666667
+"30","GSM1256682","Proliferative Endometrial tissue","Endometriosis","Minimal/Mild",7.189451,6.07558,3.850723,5.70525133333333
+"31","GSM1256683","Proliferative Endometrial tissue","Endometriosis","Minimal/Mild",7.473941,6.069391,4.969929,6.171087
+"32","GSM1256684","Proliferative Endometrial tissue","Endometriosis","Minimal/Mild",7.702022,7.692958,4.273956,6.556312
+"33","GSM1256685","Proliferative Endometrial tissue","Endometriosis","Minimal/Mild",6.56678,5.233088,3.850723,5.21686366666667
+"34","GSM1256686","Proliferative Endometrial tissue","Endometriosis","Minimal/Mild",6.584904,5.939984,3.850723,5.458537
+"35","GSM1256687","Early Secretory Endometrial tissue","Endometriosis","Moderate/Severe",8.592224,8.014364,6.250174,7.61892066666667
+"36","GSM1256688","Mid-Secretory Endometrial tissue","Endometriosis","Minimal/Mild",8.007026,7.959213,4.464103,6.810114
+"37","GSM1256689","Proliferative Endometrial tissue","Endometriosis","Minimal/Mild",8.093528,8.016788,4.9768,7.02903866666667
+"38","GSM1256690","Mid-Secretory Endometrial tissue","Endometriosis","Minimal/Mild",7.911742,6.945487,5.194057,6.683762
+"39","GSM1256691","Proliferative Endometrial tissue","Endometriosis","Minimal/Mild",7.798417,7.392254,4.981941,6.724204
+"40","GSM1256692","Mid-Secretory Endometrial tissue","Endometriosis","Minimal/Mild",8.316036,7.823575,5.571494,7.237035
+"41","GSM1256693","Proliferative Endometrial tissue","Endometriosis","Minimal/Mild",7.718258,7.827745,4.592074,6.71269233333333
+"42","GSM1256694","Mid-Secretory Endometrial tissue","Endometriosis","Minimal/Mild",6.403829,6.25351,3.850723,5.50268733333333
+"43","GSM1256695","Early Secretory Endometrial tissue","Endometriosis","Moderate/Severe",8.161594,7.430042,5.206584,6.93274
+"44","GSM1256696","Mid-Secretory Endometrial tissue","Endometriosis","Moderate/Severe",9.339608,9.541426,6.195722,8.35891866666667
+"45","GSM1256697","Mid-Secretory Endometrial tissue","Endometriosis","Moderate/Severe",7.656159,7.770245,4.198898,6.54176733333333
+"46","GSM1256698","Proliferative Endometrial tissue","Endometriosis","Minimal/Mild",7.441553,7.234383,5.119258,6.598398
+"47","GSM1256699","Proliferative Endometrial tissue","Endometriosis","Moderate/Severe",6.156924,5.014638,3.850723,5.00742833333333
+"48","GSM1256700","Mid-Secretory Endometrial tissue","Endometriosis","Minimal/Mild",8.551667,8.52927,5.279712,7.45354966666667
+"49","GSM1256701","Early Secretory Endometrial tissue","Endometriosis","Moderate/Severe",8.490819,8.445817,4.892358,7.27633133333333
+"50","GSM1256702","Proliferative Endometrial tissue","Endometriosis","Minimal/Mild",6.378422,6.766087,3.850723,5.66507733333333
+"51","GSM1256703","Proliferative Endometrial tissue","Endometriosis","Moderate/Severe",6.723048,5.544243,3.850723,5.37267133333333
+"52","GSM1256704","Mid-Secretory Endometrial tissue","Endometriosis","Moderate/Severe",6.621685,5.832934,4.373165,5.60926133333333
+"53","GSM1256705","Early Secretory Endometrial tissue","Endometriosis","Minimal/Mild",7.815471,7.282558,5.490304,6.86277766666667
+"54","GSM1256706","Proliferative Endometrial tissue","Endometriosis","Minimal/Mild",7.807696,6.91773,4.029514,6.25164666666667
+"55","GSM1256707","Proliferative Endometrial tissue","Endometriosis","Moderate/Severe",7.239176,6.260757,5.079363,6.19309866666667
+"56","GSM1256708","Early Secretory Endometrial tissue","Endometriosis","Minimal/Mild",9.33927,8.714314,7.213241,8.422275
+"57","GSM1256709","Proliferative Endometrial tissue","Endometriosis","Moderate/Severe",7.748926,6.654701,5.536204,6.64661033333333
+"58","GSM1256710","Mid-Secretory Endometrial tissue","Endometriosis","Moderate/Severe",8.756739,7.720545,5.305037,7.26077366666667
+"59","GSM1256711","Mid-Secretory Endometrial tissue","Endometriosis","Moderate/Severe",8.198376,8.30235,6.07281,7.524512
+"60","GSM1256712","Early Secretory Endometrial tissue","Endometriosis","Moderate/Severe",7.719713,7.053077,4.626101,6.466297
+"61","GSM1256713","Early Secretory Endometrial tissue","Endometriosis","Minimal/Mild",7.595845,6.737239,4.176242,6.16977533333333
+"62","GSM1256714","Mid-Secretory Endometrial tissue","Endometriosis","Moderate/Severe",7.80793,6.588955,5.61913,6.672005
+"63","GSM1256715","Mid-Secretory Endometrial tissue","Endometriosis","Minimal/Mild",8.988781,8.430716,5.729751,7.716416
+"64","GSM1256716","Early Secretory Endometrial tissue","Endometriosis","Moderate/Severe",8.668724,8.585507,6.361297,7.87184266666667
+"65","GSM1256717","Early Secretory Endometrial tissue","Endometriosis","Moderate/Severe",8.545995,8.318799,6.087053,7.65061566666667
+"66","GSM1256718","Proliferative Endometrial tissue","Endometriosis","Minimal/Mild",8.072915,7.755582,5.321126,7.04987433333333
+"67","GSM1256719","Proliferative Endometrial tissue","Endometriosis","Moderate/Severe",7.203229,6.25351,4.648176,6.03497166666667
+"68","GSM1256720","Proliferative Endometrial tissue","Non-Endometriosis","No Uterine Pelvic Pathology",7.739134,6.406587,4.778905,6.30820866666667
+"69","GSM1256721","Early Secretory Endometrial tissue","Non-Endometriosis","No Uterine Pelvic Pathology",8.778688,7.92976,6.104351,7.60426633333333
+"70","GSM1256722","Proliferative Endometrial tissue","Non-Endometriosis","No Uterine Pelvic Pathology",8.393717,7.521604,5.524276,7.14653233333333
+"71","GSM1256723","Proliferative Endometrial tissue","Non-Endometriosis","No Uterine Pelvic Pathology",9.925363,9.248588,7.450276,8.87474233333333
+"72","GSM1256724","Early Secretory Endometrial tissue","Non-Endometriosis","No Uterine Pelvic Pathology",8.93735,8.399432,6.643013,7.993265
+"73","GSM1256725","Early Secretory Endometrial tissue","Non-Endometriosis","No Uterine Pelvic Pathology",9.054211,8.089489,6.715062,7.95292066666667
+"74","GSM1256726","Proliferative Endometrial tissue","Non-Endometriosis","No Uterine Pelvic Pathology",8.339227,7.040028,5.382807,6.92068733333333
+"75","GSM1256727","Early Secretory Endometrial tissue","Non-Endometriosis","No Uterine Pelvic Pathology",8.980889,7.770411,5.694574,7.481958
+"76","GSM1256728","Mid-Secretory Endometrial tissue","Non-Endometriosis","No Uterine Pelvic Pathology",9.006399,8.17012,6.38726,7.854593
+"77","GSM1256729","Proliferative Endometrial tissue","Non-Endometriosis","No Uterine Pelvic Pathology",8.314414,6.813682,5.36442,6.83083866666667
+"78","GSM1256730","Early Secretory Endometrial tissue","Non-Endometriosis","No Uterine Pelvic Pathology",8.72004,8.65261,6.057407,7.810019
+"79","GSM1256731","Proliferative Endometrial tissue","Non-Endometriosis","No Uterine Pelvic Pathology",8.740252,8.068419,5.782708,7.53045966666667
+"80","GSM1256732","Mid-Secretory Endometrial tissue","Non-Endometriosis","No Uterine Pelvic Pathology",8.549787,8.220549,6.009423,7.593253
+"81","GSM1256733","Proliferative Endometrial tissue","Non-Endometriosis","No Uterine Pelvic Pathology",8.283977,7.310096,5.380502,6.991525
+"82","GSM1256734","Proliferative Endometrial tissue","Non-Endometriosis","No Uterine Pelvic Pathology",8.118583,7.350783,5.268975,6.91278033333333
+"83","GSM1256735","Mid-Secretory Endometrial tissue","Non-Endometriosis","Uterine Pelvic Pathology",8.678983,7.619408,5.776031,7.35814066666667
+"84","GSM1256736","Mid-Secretory Endometrial tissue","Non-Endometriosis","Uterine Pelvic Pathology",9.030894,8.090295,6.455031,7.85874
+"85","GSM1256737","Mid-Secretory Endometrial tissue","Non-Endometriosis","Uterine Pelvic Pathology",8.274216,6.904412,5.258444,6.81235733333333
+"86","GSM1256738","Mid-Secretory Endometrial tissue","Non-Endometriosis","Uterine Pelvic Pathology",8.155877,7.174916,4.033082,6.454625
+"87","GSM1256739","Proliferative Endometrial tissue","Non-Endometriosis","Uterine Pelvic Pathology",7.933939,7.415763,5.274724,6.87480866666667
+"88","GSM1256740","Mid-Secretory Endometrial tissue","Non-Endometriosis","Uterine Pelvic Pathology",8.707128,8.313084,5.206584,7.408932
+"89","GSM1256741","Proliferative Endometrial tissue","Non-Endometriosis","Uterine Pelvic Pathology",7.455537,6.712331,4.761939,6.30993566666667
+"90","GSM1256742","Proliferative Endometrial tissue","Non-Endometriosis","Uterine Pelvic Pathology",7.465903,6.25351,3.789398,5.83627033333333
+"91","GSM1256743","Mid-Secretory Endometrial tissue","Non-Endometriosis","Uterine Pelvic Pathology",8.188221,7.690826,4.3709,6.74998233333333
+"92","GSM1256744","Proliferative Endometrial tissue","Non-Endometriosis","Uterine Pelvic Pathology",8.144566,8.807082,5.607315,7.51965433333333
+"93","GSM1256745","Proliferative Endometrial tissue","Non-Endometriosis","Uterine Pelvic Pathology",8.502552,8.11568,5.563832,7.39402133333333
+"94","GSM1256746","Mid-Secretory Endometrial tissue","Non-Endometriosis","Uterine Pelvic Pathology",8.873978,8.812387,5.91835,7.86823833333333
+"95","GSM1256747","Mid-Secretory Endometrial tissue","Non-Endometriosis","Uterine Pelvic Pathology",8.327155,8.365175,5.801003,7.49777766666667
+"96","GSM1256748","Proliferative Endometrial tissue","Non-Endometriosis","Uterine Pelvic Pathology",7.734374,7.40943,5.165253,6.76968566666667
+"97","GSM1256749","Mid-Secretory Endometrial tissue","Non-Endometriosis","Uterine Pelvic Pathology",7.955919,7.590251,4.639255,6.728475
+"98","GSM1256750","Mid-Secretory Endometrial tissue","Non-Endometriosis","Uterine Pelvic Pathology",9.357011,9.41345,5.528934,8.09979833333333
+"99","GSM1256751","Early Secretory Endometrial tissue","Non-Endometriosis","Uterine Pelvic Pathology",8.624736,9.783405,5.208884,7.87234166666667
+"100","GSM1256752","Early Secretory Endometrial tissue","Non-Endometriosis","Uterine Pelvic Pathology",6.860767,6.313911,5.206584,6.12708733333333
+"101","GSM1256753","Proliferative Endometrial tissue","Non-Endometriosis","Uterine Pelvic Pathology",8.315448,7.51747,5.276854,7.03659066666667
+"102","GSM1256754","Proliferative Endometrial tissue","Non-Endometriosis","Uterine Pelvic Pathology",7.841717,7.396913,4.11978,6.45280333333333
+"103","GSM1256755","Mid-Secretory Endometrial tissue","Non-Endometriosis","Uterine Pelvic Pathology",7.878992,7.497606,3.850723,6.409107
+"104","GSM1256756","Proliferative Endometrial tissue","Non-Endometriosis","Uterine Pelvic Pathology",7.382543,6.25351,3.850723,5.82892533333333
+"105","GSM1256757","Mid-Secretory Endometrial tissue","Non-Endometriosis","Uterine Pelvic Pathology",8.365762,8.446437,5.206584,7.33959433333333
+"106","GSM1256758","Mid-Secretory Endometrial tissue","Non-Endometriosis","Uterine Pelvic Pathology",9.135132,8.144045,5.730373,7.66985
+"107","GSM1256759","Proliferative Endometrial tissue","Non-Endometriosis","Uterine Pelvic Pathology",5.43997,7.298151,5.399877,6.04599933333333
+"108","GSM1256760","Proliferative Endometrial tissue","Non-Endometriosis","Uterine Pelvic Pathology",9.357968,8.723995,6.330885,8.137616
+"109","GSM1256761","Proliferative Endometrial tissue","Non-Endometriosis","Uterine Pelvic Pathology",7.92566,7.177128,4.391675,6.49815433333333
+"110","GSM1256762","Proliferative Endometrial tissue","Non-Endometriosis","Uterine Pelvic Pathology",7.751813,6.906016,4.884046,6.51395833333333
+"111","GSM1256763","Proliferative Endometrial tissue","Non-Endometriosis","Uterine Pelvic Pathology",6.967688,5.336208,3.850723,5.384873
+"112","GSM1256764","Early Secretory Endometrial tissue","Non-Endometriosis","Uterine Pelvic Pathology",8.584928,8.515531,5.254818,7.451759
+"113","GSM1256765","Early Secretory Endometrial tissue","Non-Endometriosis","Uterine Pelvic Pathology",7.700953,6.981089,5.627926,6.76998933333333
+"114","GSM1256766","Mid-Secretory Endometrial tissue","Non-Endometriosis","No Uterine Pelvic Pathology",7.586194,8.649279,5.44068,7.22538433333333
+"115","GSM1256767","Mid-Secretory Endometrial tissue","Non-Endometriosis","No Uterine Pelvic Pathology",7.837746,8.078219,5.537316,7.15109366666667
+"116","GSM1256768","Mid-Secretory Endometrial tissue","Non-Endometriosis","No Uterine Pelvic Pathology",8.294979,8.664394,6.685454,7.881609
+"117","GSM1256769","Mid-Secretory Endometrial tissue","Non-Endometriosis","No Uterine Pelvic Pathology",7.131698,8.161948,5.624155,6.97260033333333
+"118","GSM1256770","Proliferative Endometrial tissue","Non-Endometriosis","No Uterine Pelvic Pathology",6.514995,7.245916,4.092169,5.95102666666667
+"119","GSM1256771","Proliferative Endometrial tissue","Non-Endometriosis","No Uterine Pelvic Pathology",5.203579,5.320825,3.000321,4.50824166666667
+"120","GSM1256772","Proliferative Endometrial tissue","Non-Endometriosis","No Uterine Pelvic Pathology",6.098692,5.377883,4.072254,5.182943
+"121","GSM1256773","Unknown","Endometriosis","Moderate/Severe",9.441501,8.94925,7.658689,8.68314666666667
+"122","GSM1256774","Early Secretory Endometrial tissue","Endometriosis","Minimal/Mild",8.498781,8.008528,6.502034,7.669781
+"123","GSM1256775","Unknown","Endometriosis","Minimal/Mild",9.452875,8.355784,5.944011,7.91755666666667
+"124","GSM1256776","Early Secretory Endometrial tissue","Endometriosis","Minimal/Mild",7.555805,6.902079,5.416975,6.624953
+"125","GSM1256777","Proliferative Endometrial tissue","Endometriosis","Moderate/Severe",8.753958,8.346488,6.213963,7.77146966666667
+"126","GSM1256778","Early Secretory Endometrial tissue","Endometriosis","Minimal/Mild",9.220593,8.806132,6.458746,8.16182366666667
+"127","GSM1256779","Proliferative Endometrial tissue","Endometriosis","Moderate/Severe",9.903617,8.968831,6.922974,8.598474
+"128","GSM1256780","Mid-Secretory Endometrial tissue","Endometriosis","Moderate/Severe",9.247625,8.24019,6.65176,8.046525
+"129","GSM1256781","Mid-Secretory Endometrial tissue","Endometriosis","Moderate/Severe",8.765308,7.714492,5.630152,7.369984
+"130","GSM1256782","Proliferative Endometrial tissue","Endometriosis","Moderate/Severe",8.339192,7.322154,6.238073,7.29980633333333
+"131","GSM1256783","Late Secretory Endometrial tissue","Non-Endometriosis","Uterine Pelvic Pathology",9.358004,8.825418,7.070797,8.418073
+"132","GSM1256784","Proliferative Endometrial tissue","Non-Endometriosis","No Uterine Pelvic Pathology",9.6205,8.640965,6.022611,8.094692
+"133","GSM1256785","Proliferative Endometrial tissue","Non-Endometriosis","No Uterine Pelvic Pathology",9.231717,8.453071,6.551697,8.07882833333333
+"134","GSM1256786","Proliferative Endometrial tissue","Non-Endometriosis","No Uterine Pelvic Pathology",8.626319,8.465381,6.023173,7.70495766666667
+"135","GSM1256787","Early Secretory Endometrial tissue","Non-Endometriosis","No Uterine Pelvic Pathology",8.933226,7.589532,6.59457,7.705776
+"136","GSM1256788","Proliferative Endometrial tissue","Non-Endometriosis","No Uterine Pelvic Pathology",9.788706,8.99067,6.231454,8.33694333333333
+"137","GSM1256789","Mid-Secretory Endometrial tissue","Non-Endometriosis","Uterine Pelvic Pathology",8.507849,7.701685,5.770278,7.326604
+"138","GSM1256790","Early Secretory Endometrial tissue","Non-Endometriosis","Uterine Pelvic Pathology",8.784912,8.142315,6.065113,7.66411333333333
+"139","GSM1256791","Mid-Secretory Endometrial tissue","Non-Endometriosis","No Uterine Pelvic Pathology",9.932041,9.022243,5.98127,8.31185133333333
+"140","GSM1256792","Early Secretory Endometrial tissue","Non-Endometriosis","Uterine Pelvic Pathology",9.110264,7.700953,6.357386,7.72286766666667
+"141","GSM1256793","Proliferative Endometrial tissue","Non-Endometriosis","No Uterine Pelvic Pathology",8.162002,7.331185,4.828047,6.77374466666667
+"142","GSM1256794","Proliferative Endometrial tissue","Non-Endometriosis","Uterine Pelvic Pathology",8.142526,7.427843,5.51105,7.02713966666667
+"143","GSM1256795","Late Secretory Endometrial tissue","Non-Endometriosis","Uterine Pelvic Pathology",10.168164,9.328175,7.181956,8.892765
+"144","GSM1256796","Proliferative Endometrial tissue","Non-Endometriosis","No Uterine Pelvic Pathology",8.850335,8.183734,5.202489,7.412186
+"145","GSM1256797","Mid-Secretory Endometrial tissue","Non-Endometriosis","No Uterine Pelvic Pathology",10.021123,8.939348,6.281327,8.41393266666667
+"146","GSM1256798","Proliferative Endometrial tissue","Non-Endometriosis","No Uterine Pelvic Pathology",8.475629,7.80252,5.230864,7.169671
+"147","GSM1256799","Proliferative Endometrial tissue","Non-Endometriosis","No Uterine Pelvic Pathology",8.444265,7.864647,5.037827,7.11557966666667
+"148","GSM1256800","Proliferative Endometrial tissue","Non-Endometriosis","No Uterine Pelvic Pathology",8.187244,7.250328,4.809317,6.748963
