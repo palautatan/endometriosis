@@ -241,3 +241,87 @@ for (k in 1:length(unique(duplicate_all_rows$gene))) {
   
 }
 ```
+
+These are now saved in the data folder.
+
+
+# Read in the csv's, get the final column
+
+```{r}
+avg_genes <- list.files("../../data/genbank/avg-genes", full.names=TRUE)
+head(avg_genes)
+```
+
+```{r}
+avg_gene_list <- c()
+i <- 1
+for (file in avg_genes) {
+  this_file <- read.csv(file)[,-1]
+  gene_name <- names(this_file)[ncol(this_file)]
+  avg_gene_list[[i]] <- list(gene_name, this_file[,ncol(this_file)])
+  i = i + 1
+}
+```
+
+```{r}
+avg_gene_df <- data.frame(avg_gene_list[[1]][2])
+names(avg_gene_df) <- avg_gene_list[[1]][1]
+```
+
+```{r}
+for (k in 2:length(avg_gene_list)) {
+  avg_gene_df <- cbind(avg_gene_df, avg_gene_list[[k]][2])
+  names(avg_gene_df)[k] <- avg_gene_list[[k]][1]
+}
+write.csv(avg_gene_df, "../../data/genbank/duplicate_genes.csv")
+```
+
+
+# Remove the duplicate genes entirely from the cuts
+
+
+```{r}
+summary <- read.csv("../../data/genbank/gene_summary.csv", row.names=NULL)[,-1]
+head(summary)
+```
+
+```{r}
+FUCK <- 1
+summary[1,]
+new_loc <- gsub("removed-controls", "i-am-frustrated", as.character(rows_to_iterate[FUCK,]$file))
+some_cut <- read.csv(new_loc)[,-1]
+head(some_cut)
+```
+
+```{r}
+
+rows_to_iterate <- summary[which(summary$freq>1),]
+head(rows_to_iterate)
+```
+
+```{r}
+# FUCK <- 1
+# 
+# as.character(rows_to_iterate[FUCK,]$probe) == gsub("X", "", names(some_cut)[(rows_to_iterate[FUCK,]$ix)+4])
+# 
+# test <- some_cut[,-(rows_to_iterate[FUCK,]$ix+4)]
+# rbind(dim(some_cut), dim(test))
+# 
+# write.csv(test, new_loc)
+
+```
+
+I need a fucking function.
+
+```{r}
+for (k in 1:length(unique(rows_to_iterate$file))) {
+  to_remove <- rows_to_iterate[which(rows_to_iterate$file==unique(rows_to_iterate$file)[k]),]$ix+4
+  new_loc   <- gsub("removed-controls", "i-am-frustrated", as.character(rows_to_iterate$file[k]))
+  this_cut  <- read.csv(new_loc)[,-1]
+  this_cut  <- this_cut[,-to_remove]
+  write.csv(this_cut, new_loc)
+}
+
+```
+
+Seems to work. I will now be going back to removing controls.
