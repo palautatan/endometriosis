@@ -286,32 +286,26 @@ head(summary)
 ```
 
 ```{r}
+
+
 FUCK <- 1
-summary[1,]
+rows_to_iterate <- summary[which(summary$freq>1),]
+head(rows_to_iterate)
+
+rows_to_iterate[1,]
+
 new_loc <- gsub("removed-controls", "i-am-frustrated", as.character(rows_to_iterate[FUCK,]$file))
 some_cut <- read.csv(new_loc)[,-1]
 head(some_cut)
+dim(some_cut)
+
+test <- some_cut[,-(rows_to_iterate[FUCK,]$ix+4)]
+head(test)
+dim(test)
 ```
 
-```{r}
 
-rows_to_iterate <- summary[which(summary$freq>1),]
-head(rows_to_iterate)
-```
-
-```{r}
-# FUCK <- 1
-# 
-# as.character(rows_to_iterate[FUCK,]$probe) == gsub("X", "", names(some_cut)[(rows_to_iterate[FUCK,]$ix)+4])
-# 
-# test <- some_cut[,-(rows_to_iterate[FUCK,]$ix+4)]
-# rbind(dim(some_cut), dim(test))
-# 
-# write.csv(test, new_loc)
-
-```
-
-I need a fucking function.
+I need a function.
 
 ```{r}
 for (k in 1:length(unique(rows_to_iterate$file))) {
@@ -325,3 +319,27 @@ for (k in 1:length(unique(rows_to_iterate$file))) {
 ```
 
 Seems to work. I will now be going back to removing controls.
+
+UPDATE: Fixed the control thing...
+
+# Now I want to put the data together, then pull it back apart
+
+```{r}
+removed_controls_foreal <- list.files("../../data/genbank/i-am-frustrated", full.names=TRUE)
+
+# first_cut <- read.csv(removed_controls_foreal[1])[,-c(1:5)]
+# names(first_cut) <- get_genes(removed_controls_foreal[1])$gene
+
+full_data <- read.csv(removed_controls_foreal[1])[,c(2:5)]
+# length(get_genes(removed_controls_foreal[1])$gene)
+# length(names(first_cut))
+
+for (k in 1:length(removed_controls_foreal)) {
+  this_cut <- read.csv(removed_controls_foreal[k])[,-c(1:5)]
+  names(this_cut) <- get_genes(removed_controls_foreal[k])$gene
+  
+  full_data <- cbind(full_data, this_cut)
+}
+
+write.csv(full_data, "../../data/genbank/full_data.csv")
+```
