@@ -114,7 +114,7 @@ boxplot(t(normalized_loess),
 boxplot(t(normalized_scale),
         main = "Samples with Normalized Scale")
 ```
-
+ 
 ``` {r}
 # CUT 1 
 # normalize the data

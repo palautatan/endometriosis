@@ -12,7 +12,7 @@ boxplot(normalized_loess,
 boxplot(normalized_scale,
         main = "Normalized Scale")
 boxplot(genes)
-
+ 
 
 # look at CUT_1
 par(mfrow=c(2,3))
