@@ -1,0 +1,41 @@
+---
+title: "preprocessing"
+output: html_document
+---
+
+# Preprocessing
+
+```{r}
+source("http://bioconductor.org/biocLite.R")
+library(affy)
+library(Biobase)
+```
+
+**Question: How to create an AffyBatch object using a data matrix?**
+https://www.biostars.org/p/244087/
+
+**Question: Example on constructing AffyBatch object**
+https://support.bioconductor.org/p/34261/
+
+**Question: Creating an Expression Set with a csv file**
+https://support.bioconductor.org/p/69116/
+
+**Affymetrix CEL files**
+http://www.sthda.com/english/wiki/affymetrix-cel-files
+
+**Question: how to convert ExpressionSet to AffyBatch**
+https://support.bioconductor.org/p/54812/
+
+**Affybatch Class*
+http://web.mit.edu/~r/current/arch/i386_linux26/lib/R/library/affy/html/AffyBatch-class.html
+
+```{r}
+?rma
+?ExpressionSet
+```
+
+# Creating Expression Set with CSV file
+
+```{r}
+eset <- new("ExpressionSet", exprs = m, phenoData = pdata, featureData = fdata)
+```
