@@ -183,3 +183,55 @@ for (k in 2:length(avg_gene_list)) {
 }
 write.csv(avg_gene_df, "../../data/genbank/00-helper-files/duplicate_genes.csv")
 ```
+
+
+
+# Remove the duplicate genes entirely from the cuts
+
+
+```{r}
+summary <- read.csv("../../data/genbank/00-helper-files/gene-summary.csv", row.names=NULL)[,-1]
+head(summary)
+```
+
+I need a function.
+
+**BEFORE RUNNING THIS**, copy and paste the original 02 folder and rename it to the 04 name.
+
+```{r}
+rows_to_iterate <- summary[which(summary$freq>1),]
+for (k in 1:length(unique(rows_to_iterate$file))) {
+  to_remove <- rows_to_iterate[which(rows_to_iterate$file==unique(rows_to_iterate$file)[k]),]$ix+4
+  new_loc   <- gsub("02-removed-controls", "04-removed-duplicates", as.character(rows_to_iterate$file[k]))
+  this_cut  <- read.csv(new_loc)[,-1]
+  this_cut  <- this_cut[,-to_remove]
+  write.csv(this_cut, new_loc)
+}
+
+```
+
+Seems to work. I will now be going back to removing controls.
+
+UPDATE: Fixed the control thing...
+
+# Now I want to put the data together, then pull it back apart
+
+```{r}
+removed_controls_foreal <- list.files("../../data/genbank/04-removed-duplicates", full.names=TRUE)
+
+# first_cut <- read.csv(removed_controls_foreal[1])[,-c(1:5)]
+# names(first_cut) <- get_genes(removed_controls_foreal[1])$gene
+
+full_data <- read.csv(removed_controls_foreal[1])[,c(2:5)]
+# length(get_genes(removed_controls_foreal[1])$gene)
+# length(names(first_cut))
+
+for (k in 1:length(removed_controls_foreal)) {
+  this_cut <- read.csv(removed_controls_foreal[k])[,-c(1:5)]
+  names(this_cut) <- get_genes(removed_controls_foreal[k])$gene
+  
+  full_data <- cbind(full_data, this_cut)
+}
+
+write.csv(full_data, "../../data/genbank/full_data.csv")
+```
