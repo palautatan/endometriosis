@@ -51,20 +51,38 @@ For this small dataset,there are no duplicate genes.
           
 #EDA        
 
-##PCA
+##PCA by endometriosis     
+
+        
 ```{r}
 raw_small <- subset[,-c(1:4)]
 res <- prcomp(raw_small,scale. = FALSE)
-plot(res$x)
+endometriosis <- as.character(subset[,3])
+severity <- as.character(subset[,4])
+
+Cols=function (vec){  
+  cols=rainbow(length (unique(vec))) 
+  return (cols[as.numeric (as.factor(vec))]) 
+}
+
+plot(res$x, 
+     col=Cols(endometriosis), 
+     pch =19)
+
 ```
        
+##PCA by severity      
+```{r}
+plot(res$x, 
+     col=Cols(severity), 
+     pch =19)
+```
+        
 ##Clustering       
      
 ###clustering by endometriosis
 ```{r}
 dist_raw <- dist(raw_small)          #dist(default=by row)
-endometriosis <- as.character(subset[,3])
-severity <- as.character(subset[,4])
 library(rafalib)
 mypar()
 hc_raw <- hclust(dist_raw)
