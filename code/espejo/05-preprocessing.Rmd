@@ -37,5 +37,68 @@ http://web.mit.edu/~r/current/arch/i386_linux26/lib/R/library/affy/html/AffyBatc
 # Creating Expression Set with CSV file
 
 ```{r}
-eset <- new("ExpressionSet", exprs = m, phenoData = pdata, featureData = fdata)
+full_data <- "../../data/genbank/full_data.csv"
+full_data <- read.csv(full_data)[,-1]
+
+assay <- full_data[,-c(1:4)]
+assay <- as.matrix(assay)
+row.names(assay) <- meta[,1]
 ```
+
+**Expression Set**
+https://www.bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf
+
+
+```{r}
+?AnnotatedDataFrame
+meta
+```
+
+```{r}
+metadata <- data.frame(labelDescription=c("Sample ID number","Sampled tissue","Whether or not patient has endometriosis", "Severity of endometriosis or non-endometriosis"),row.names=c("sample", "tissue", "endometriosis", "severity"))
+metadata
+```
+
+
+```{r}
+meta  <- full_data[,1:4]
+row.names(meta) <- meta[,1]
+pheno_data <-new("AnnotatedDataFrame", data=meta, varMetadata=metadata)
+# sampleNames(pheno_data)
+```
+
+```{r}
+sampleNames(assay)
+```
+
+```{r}
+expression_set <- ExpressionSet(assayData=assay, phenoData=pheno_data)
+expression_set
+```
+
+^^ Doesn't work.
+
+```{r}
+expression_set <- ExpressionSet(assayData=assay, probNames=names(assay))
+expression_set
+```
+
+**Tutorial**
+https://biochem.wisc.edu/sites/default/files/facilities/bcrf/tutorials/R/R_Bioconductor/CH25/from_cel_files_to_gene_list.html#4_preparation
+
+```{r}
+try <- rma(expression_set)
+```
+
+
+**GCRMA v. RMA**
+https://support.bioconductor.org/p/3248/
+
+**GC Paper**
+http://www.biostat.jhsph.edu/~ririzarr/papers/gcpaper.pdf
+
+**Why RMA**
+https://support.bioconductor.org/p/63851/
+
+**GCRMA v. Limma**
+https://www.biostars.org/p/336470/
