@@ -35,12 +35,15 @@ norm <- read.csv("../../data/genbank/01-normalized/cut_1.csv")
 set.seed(48)
 iv <- sample(x=6:ncol(norm), size=100, replace=FALSE)
 
-norm_subset_genes <- norm[,5:106]
-norm_subset <- norm_subset_genes %>% filter(severity == "Moderate/Severe" | severity == "Uterine Pelvic Pathology" | severity == "Minimal/Mild")
+norm_subset_endo <- norm[,4]
+norm_subset_genes <- norm[,6:106]
+norm_subset <- cbind(norm_subset_endo, norm_subset_genes)
 
-norm_sub <- norm_subset[,2:102]
+
 
 dim(norm_sub)
+
+
 ```
 
 ``` {r, echo = FALSE}
