@@ -281,7 +281,7 @@ boxplot(t(norm_sub),
         main = "GCRMA Normalized Samples without No UPP")
 boxplot(t(genes),
         main = "Figshare samples")
-```
+``` 
 
 \newpage
 

@@ -1,0 +1,48 @@
+---
+title: "machine-learning"
+author: "Asem Berkalieva"
+date: "12/1/2018"
+output: pdf_document
+---
+
+Classify based on: Endo vs. No endo
+
+```{r}
+require(caret)  # contains most of the prediction functions we'll use
+require(rpart)  # needed for the plotting
+require(e1071)
+
+dim(norm_subset)
+
+
+# create training vs. test
+set.seed(47)
+inTrain <- createDataPartition(y=norm_subset$norm_subset_endo, p=.747, list=FALSE)
+endo.train <- norm_subset[inTrain,]
+endo.test <- norm_subset[-inTrain,]
+
+# apply k = 11
+fitControl <- trainControl(method = "none")
+tr.data <- train(norm_subset_endo ~ X121_at + X1255_g_at, 
+                 data = endo.train, 
+                 method = "knn", 
+                 trControl = fitControl, 
+                 tuneGrid= data.frame(k = 11))
+
+# obtain matrix to compare accuracy
+confusionMatrix(data = predict(endo.train, newdata = endo.test), 
+                reference = endo.test$norm_subset_endo)
+
+
+
+
+# extra: maybe another way to split train and test
+set.seed(5)
+
+# randomly sample 800 observations from the data
+trainingObs <- sample(1:nrow(norm_subset), 800)
+
+# split into the training and test data
+training <- OJ[trainingObs,]
+test <- OJ[-trainingObs,]
+```
