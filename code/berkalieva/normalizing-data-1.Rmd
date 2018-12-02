@@ -1,0 +1,304 @@
+---
+title: "fgene-code-copy"
+author: "Asem Berkalieva"
+date: "11/27/2018"
+output: pdf_document
+---
+
+``` {r, warnings = FALSE, message = FALSE}
+# load in libraries
+library(gcrma)
+library(limma)
+library(dplyr)
+```
+
+``` {r, echo = FALSE}
+# read in PROBESET data
+small_subset <- read.csv("../../data/genbank/01-small-subset/normalized_subset.csv")
+probeset <- small_subset[,6:105]
+
+# read in CUT 1 data (controls REMOVED)
+cut_1_probe <- read.csv("../../data/genbank/02-removed-controls/cut_1.csv")
+ 
+# create a subset 
+set.seed(47)
+iv <- sample(x=6:ncol(cut_1_probe), size=100, replace=FALSE)
+cut_1 <- cut_1_probe[,c(iv)]
+
+# check dimensions
+dim(cut_1)
+
+# read in GCRMA NORMALIZED SUBSET
+norm <- read.csv("../../data/genbank/01-normalized/cut_1.csv")
+
+# create a subset 
+set.seed(48)
+iv <- sample(x=6:ncol(norm), size=100, replace=FALSE)
+
+norm_subset_genes <- norm[,5:106]
+norm_subset <- norm_subset_genes %>% filter(severity == "Moderate/Severe" | severity == "Uterine Pelvic Pathology" | severity == "Minimal/Mild")
+
+norm_sub <- norm_subset[,2:102]
+
+dim(norm_sub)
+```
+
+``` {r, echo = FALSE}
+# read in FIGSHARE/GENE data from the final paper
+normal_gene <- read.csv("../../data/figshare/clean-csv/normal.csv")
+mild_gene <- read.csv("../../data/figshare/clean-csv/minimal-mild.csv")
+severe_gene <- read.csv("../../data/figshare/clean-csv/moderate-severe.csv")
+
+# create a subset
+set.seed(48)
+ix <- sample(x=1:ncol(normal_gene), size=100, replace=FALSE)
+normal_subset <- normal_gene[,c(ix)]
+mild_subset <- mild_gene[,c(ix)]
+severe_subset <- severe_gene[,c(ix)]
+genes <- rbind(normal_subset, mild_subset, severe_subset)
+
+# check dimensions
+# dim(genes)
+```
+
+# RAW PROBESET DATA
+
+### EDA:
+
+This is what the **GENES/columns** look like:
+``` {r, echo = FALSE}
+# explore current data of GENES
+boxplot(probeset,
+        main = "Raw Probeset")
+
+# subset
+boxplot(probeset[,1:5],
+        main = "Close up of First Five Probes")
+```
+
+This is what the **SAMPLES/rows** look like:
+``` {r, echo = FALSE}
+# explore current data of SAMPLES
+boxplot(t(probeset),
+        main = "Raw Probeset Samples")
+
+# subset
+boxplot(t(probeset)[,1:5],
+        main = "Close up of First Five Probe Samples")
+```
+
+\newpage
+
+### Log transform the data
+
+I have log transformed the raw probeset data to see if it helps... it doesn't.
+
+``` {r}
+# log transform the data
+scaled_log <- log(probeset)
+
+# view the new spread
+boxplot(scaled_log,
+        main = "Log Transformed Distributions of Probesets")
+```
+
+# CUT 1 DATA
+
+Let's use Cut 1 to see if removing controls now allows a log-transformation to perform better:
+
+``` {r}
+# log transform the data
+log_cut <- log(cut_1)
+
+# view the new log-transformed data
+par(mfrow=c(1,2))
+
+boxplot(cut_1,
+        main = "Non-Log Cut 1")
+boxplot(log_cut,
+        main = "Logged Cut 1")
+```
+
+\newpage
+
+# NORMALIZATION
+
+### Normalize using LIMMA
+
+Perform basic PCA/EDA on different normalizations. Are we seeing/removing technical variation or biological variation?  
+
+Check assumptions:
+- Quantile: assume all have same distribution
+- LOESS: needs to be log-transformed first
+
+**Be thorough: justify every step. **
+
+### RAW PROBESET
+
+``` {r}
+# PROBESET SUBSET
+# normalize the data
+normalized_quantile <- normalizeBetweenArrays(probeset, method = "quantile")
+normalized_loess <- normalizeBetweenArrays(probeset, method = "cyclicloess")
+normalized_scale <- normalizeBetweenArrays(probeset, method = "scale")
+
+# transform to data frame for easy plotting
+non_normalized <- as.data.frame(probeset)
+normalized_quantile <- as.data.frame(normalized_quantile)
+normalized_loess <- as.data.frame(normalized_loess)
+normalized_scale <- as.data.frame(normalized_scale)
+
+# look at the PROBESETS
+par(mfrow=c(2,2))
+boxplot(non_normalized,
+        main = "Non-normalized")
+boxplot(normalized_quantile,
+        main = "Normalized Quantile")
+boxplot(normalized_loess,
+        main = "Normalized LOESS")
+boxplot(normalized_scale,
+        main = "Normalized Scale")
+
+# look at the SAMPLES
+par(mfrow=c(2,2))
+boxplot(t(probeset))
+boxplot(t(normalized_quantile),
+          main = "Samples with Normalize Quantile")
+boxplot(t(normalized_loess),
+        main = "Samples with Normalize LOESS")
+boxplot(t(normalized_scale),
+        main = "Samples with Normalized Scale")
+```
+ 
+### CUT 1: REMOVED CONTROLS
+ 
+``` {r}
+# CUT 1 
+# normalize the data
+cut_quantile <- normalizeBetweenArrays(cut_1, method = "quantile")
+cut_loess <- normalizeBetweenArrays(cut_1, method = "cyclicloess")
+cut_scale <- normalizeBetweenArrays(cut_1, method = "scale")
+
+# transform to data frame for easy plotting
+non_norm_cut <- as.data.frame(cut_1)
+cut_quantile <- as.data.frame(cut_quantile)
+cut_loess <- as.data.frame(cut_loess)
+cut_scale <- as.data.frame(cut_scale)
+
+# look at the PROBESETS
+par(mfrow=c(2,2))
+boxplot(non_norm_cut,
+        main = "Non-normalized")
+boxplot(cut_quantile,
+        main = "Normalized Quantile")
+boxplot(cut_loess,
+        main = "Normalized LOESS")
+boxplot(cut_scale,
+        main = "Normalized Scale")
+
+
+# look at the SAMPLES
+par(mfrow=c(2,2))
+boxplot(t(non_norm_cut),
+        "Non norm samples")
+boxplot(t(cut_quantile),
+          main = "Samples with Normalize Quantile")
+boxplot(t(cut_loess),
+        main = "Samples with Normalize LOESS")
+boxplot(t(cut_scale),
+        main = "Samples with Normalized Scale")
+```
+
+``` {r}
+# LOGGED CUT 1
+# normalize the data
+log_quantile <- normalizeBetweenArrays(log_cut, method = "quantile")
+log_loess <- normalizeBetweenArrays(log_cut, method = "cyclicloess")
+log_scale <- normalizeBetweenArrays(log_cut, method = "scale")
+
+# transform to data frame for easy plotting
+non_norm_log <- as.data.frame(log_cut)
+log_quantile <- as.data.frame(log_quantile)
+log_loess <- as.data.frame(log_loess)
+log_scale <- as.data.frame(log_scale)
+
+# look at the PROBESETS
+par(mfrow=c(2,2))
+boxplot(non_norm_log,
+        main = "Logged, but not normalized")
+boxplot(log_quantile,
+        main = "Log Normalized Quantile")
+boxplot(log_loess,
+        main = "Log Normalized LOESS")
+boxplot(log_scale,
+        main = "Log Normalized Scale")
+
+# look at the SAMPLES
+par(mfrow=c(2,2))
+boxplot(t(non_norm_log),
+        main = "Log Samples without Norm")
+boxplot(t(log_quantile),
+          main = "Log Samples with Normalize Quantile")
+boxplot(t(log_loess),
+        main = "Log Samples with Normalize LOESS")
+boxplot(t(log_scale),
+        main = "Log Samples with Normalized Scale")
+```
+ 
+# GCRMA DATA!!!!! 
+
+``` {r}
+par(mfrow=c(1,2))
+
+# look at GENES
+boxplot(norm_subset,
+        main = "GCRMA Normalized Probes")
+boxplot(genes,
+        main = "Figshare Genes")
+
+par(mfrow=c(1,2))
+# look at SAMPLES
+boxplot(t(norm_subset),
+        main = "GCRMA Normalized Samples")
+boxplot(t(genes),
+        main = "Figshare samples")
+```
+
+# GCRMA without No-UPP:
+
+``` {r}
+par(mfrow=c(1,2))
+
+# look at GENES
+boxplot(norm_sub,
+        main = "GCRMA Normalized Probes, without No UPP")
+boxplot(genes,
+        main = "Figshare Genes")
+
+par(mfrow=c(1,2))
+# look at SAMPLES
+boxplot(t(norm_sub),
+        main = "GCRMA Normalized Samples without No UPP")
+boxplot(t(genes),
+        main = "Figshare samples")
+```
+
+\newpage
+
+### Working with Figshare/gene data
+
+We want to look at the data from Figshare to see what their "Normalized" data looks like. This way, we can compare and get a standard for what our normalized data should approximately look like.
+
+This is what the data looks like for Figshare after they normalized. The distribution for genes are different, but the samples' distributions are similar. 
+
+``` {r}
+# look at genes
+boxplot(genes,
+        main = "Figshare genes")
+
+# look at samples
+boxplot(t(genes),
+        main = "Figshare samples")
+```
+
+

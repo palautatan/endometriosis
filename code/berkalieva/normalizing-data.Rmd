@@ -11,11 +11,11 @@ library(gcrma)
 library(limma)
 
 # read in PROBESET data
-small_subset <- read.csv("../../data/genbank/clean-csv/small_subset.csv")
+small_subset <- read.csv("../../data/genbank/01-small-subset/normalized_subset.csv")
 probeset <- small_subset[,6:105]
 
 # work with Cut 1 with controls REMOVED
-cut_1_probe <- read.csv("../../data/genbank/removed-controls/cut_1.csv")
+cut_1_probe <- read.csv("../../data/genbank/02-removed-controls/cut_1.csv")
 
 # create a subset
 iv <- sample(x=6:ncol(cut_1_probe), size=100, replace=FALSE)
