@@ -1,0 +1,89 @@
+---
+title: "PCA and Heatmaps"
+author: "Hengcheng Zhu"
+output: html_document
+---
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+subset <- read.csv("../../../data/genbank/05-final-cuts/cut_1.csv")[,-1]
+```
+
+```{r message=FALSE, warning=FALSE}
+library("hgu133plus2.db")
+probe_names <- colnames(subset)[-c(1:4)]
+probe_names <- gsub("^X", "", probe_names)
+
+test <- data.frame(cbind(names(contents(hgu133plus2SYMBOL)), unlist(contents(hgu133plus2SYMBOL))))
+rownames(test) <- 1:nrow(test)
+
+test[,2] <- as.character(test[,2])
+```
+          
+#EDA        
+
+##PCA by endometriosis     
+
+        
+```{r}
+raw_small <- subset[,-c(1:4)]
+res <- prcomp(raw_small,scale. = FALSE)
+endometriosis <- as.character(subset[,3])
+severity <- as.character(subset[,4])
+
+Cols=function (vec){  
+  cols=rainbow(length (unique(vec))) 
+  return (cols[as.numeric (as.factor(vec))]) 
+}
+
+plot(res$x, 
+     col=Cols(endometriosis), 
+     pch =19)
+
+```
+       
+##PCA by severity      
+```{r}
+plot(res$x, 
+     col=Cols(severity), 
+     pch =19)
+```
+        
+##Clustering       
+     
+###clustering by endometriosis
+```{r}
+dist_raw <- dist(raw_small)          #dist(default=by row)
+library(rafalib)
+mypar()
+hc_raw <- hclust(dist_raw)
+myplclust(hc_raw, labels=endometriosis, lab.col=as.fumeric(endometriosis), cex=0.5)
+```
+        
+###clustering by severity
+```{r message=FALSE, warning=FALSE}
+myplclust(hc_raw, labels=severity, lab.col=as.fumeric(severity), cex=0.5)
+```
+
+### Heatmap by endometriosis      
+```{r message=FALSE, warning=FALSE}
+library(gplots) 
+library(RColorBrewer) 
+hmcol <- colorRampPalette(brewer.pal(9, "GnBu"))(100)
+cols <- palette(brewer.pal(8, "Dark2"))[as.fumeric(endometriosis)]
+heatmap.2(as.matrix(dist_raw), labCol=endometriosis,
+          trace="none", 
+          ColSideColors=cols, 
+          col=hmcol)
+```
+         
+###Heatmap by severity     
+```{r message=FALSE, warning=FALSE}
+cols <- palette(brewer.pal(8, "Dark2"))[as.fumeric(severity)]
+heatmap.2(as.matrix(dist_raw), labCol=severity,
+          trace="none", 
+          ColSideColors=cols, 
+          col=hmcol)
+```
+        
+
+

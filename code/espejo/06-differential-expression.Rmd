@@ -1,0 +1,54 @@
+---
+title: "Differential Expression"
+output: html_document
+---
+
+## Average Log Fold Change
+
+I am closely following this.
+
+https://biochem.wisc.edu/sites/default/files/facilities/bcrf/tutorials/R/R_Bioconductor/CH25/from_cel_files_to_gene_list.html#8_ranking_and_filtering_genes
+
+```{r}
+starting_cut <- read.csv("../../data/genbank/full_data.csv", stringsAsFactors=FALSE)[,-1]
+head(starting_cut)
+```
+
+
+```{r}
+unique(starting_cut$endometriosis)
+```
+We have log base 2 expressions from GCRMA.
+
+```{r}
+d <-  rowMeans(t(starting_cut[which(starting_cut$endometriosis=="Endometriosis"), 5:ncol(starting_cut)])) -
+  rowMeans(t(starting_cut[which(starting_cut$endometriosis=="Non-Endometriosis"), 5:ncol(starting_cut)]))
+d[1:10]
+```
+
+```{r}
+a <- rowMeans(t(starting_cut[,5:ncol(starting_cut)]))
+```
+
+
+```{r}
+library(scales)
+plot(a, d, col=alpha("cornflowerblue", 0.1), pch=19, ylim=c(-8,8), ylab="M", xlab="d", main="MA Plot")
+abline(h=0)
+```
+
+```{r}
+plot(a, d, col=alpha("cornflowerblue", 0.1), pch=19, ylim=c(-1,1), ylab="M", xlab="d", main="MA Plot")
+abline(h=0)
+```
+
+```{r}
+core_genes <- names(d)[which(abs(d)>1)]
+ix <- c(1:4, which(colnames(starting_cut) %in% core_genes))
+ending_cut <- starting_cut[,ix]
+head(ending_cut)
+```
+
+```{r}
+write.csv(ending_cut, "../../data/genbank/core_data.csv")
+```

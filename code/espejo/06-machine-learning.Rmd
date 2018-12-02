@@ -1,0 +1,74 @@
+---
+title: "Machine Learning"
+output: html_document
+---
+
+# Preliminaries
+Create 80-20 test.
+
+```{r}
+starting_cut <- read.csv("../../data/genbank/05-final-cuts/cut_1.csv", stringsAsFactors=FALSE)[,-1]
+gene_exprs   <- dim(starting_cut)[1]
+
+training_set   <- starting_cut[1:round(148*0.8), 5:ncol(starting_cut)]
+validation_set <- starting_cut[(round(148*0.8)+1):nrow(starting_cut), 5:ncol(starting_cut)]
+
+head(training_set)
+```
+
+# K-Nearest Neighbors
+KNN requires no assumptions. We just need a choice of k.
+
+## Endo/No Endo
+
+```{r}
+library(class)
+truth     <- starting_cut[(round(148*0.8)+1):nrow(starting_cut), 3]
+```
+
+#### k = 5
+```{r}
+predicted <- knn(train=training_set, test=validation_set, cl=starting_cut[1:round(148*0.8), 3], k=5)
+confusion_matrix <- cbind(fitted=as.character(predicted), actual=truth)
+length(which(confusion_matrix[,1]==confusion_matrix[,2])) / length(truth)
+```
+
+
+#### k = 8
+```{r}
+predicted <- knn(train=training_set, test=validation_set, cl=starting_cut[1:round(148*0.8), 3], k=8)
+confusion_matrix <- cbind(fitted=as.character(predicted), actual=truth)
+length(which(confusion_matrix[,1]==confusion_matrix[,2])) / length(truth)
+```
+
+#### k = 10
+```{r}
+predicted <- knn(train=training_set, test=validation_set, cl=starting_cut[1:round(148*0.8), 3], k=10)
+confusion_matrix <- cbind(fitted=as.character(predicted), actual=truth)
+length(which(confusion_matrix[,1]==confusion_matrix[,2])) / length(truth)
+```
+
+#### k = 15
+```{r}
+library(class)
+predicted <- knn(train=training_set, test=validation_set, cl=starting_cut[1:round(148*0.8), 3], k=15)
+truth     <- starting_cut[(round(148*0.8)+1):nrow(starting_cut), 3]
+
+confusion_matrix <- cbind(fitted=as.character(predicted), actual=truth)
+length(which(confusion_matrix[,1]==confusion_matrix[,2])) / length(truth)
+```
+
+#### k = 50
+```{r}
+predicted <- knn(train=training_set, test=validation_set, cl=starting_cut[1:round(148*0.8), 3], k=50)
+confusion_matrix <- cbind(fitted=as.character(predicted), actual=truth)
+length(which(confusion_matrix[,1]==confusion_matrix[,2])) / length(truth)
+```
+
+
+#### k = 100
+```{r}
+predicted <- knn(train=training_set, test=validation_set, cl=starting_cut[1:round(148*0.8), 3], k=100)
+confusion_matrix <- cbind(fitted=as.character(predicted), actual=truth)
+length(which(confusion_matrix[,1]==confusion_matrix[,2])) / length(truth)
+```
