@@ -5,44 +5,252 @@ date: "12/1/2018"
 output: pdf_document
 ---
 
-Classify based on: Endo vs. No endo
+# Machine Learning Goal: Classify based on Endo vs. No endo
+
+# Importing data
 
 ```{r}
 require(caret)  # contains most of the prediction functions we'll use
 require(rpart)  # needed for the plotting
+library(randomForest)
 require(e1071)
 
-dim(norm_subset)
+# read in the core gene data
+core_data <- read.csv("../../data/genbank/core_data.csv")
+core_class <- core_data[,4] # obtain endo classifications
+core_exp <- core_data[,6:387] # expression data
+core_genes <- cbind(core_class, core_exp)
+colnames(core_genes)[1] <- "endo"
+```
 
 
+# kNN
+
+``` {r}
 # create training vs. test
 set.seed(47)
-inTrain <- createDataPartition(y=norm_subset$norm_subset_endo, p=.747, list=FALSE)
-endo.train <- norm_subset[inTrain,]
-endo.test <- norm_subset[-inTrain,]
+inTrain <- createDataPartition(y=core_genes$endo, p=.747, list=FALSE)
+endo.train <- core_genes[inTrain,]
+endo.test <- core_genes[-inTrain,]
 
-# apply k = 11
+# apply k = 10
 fitControl <- trainControl(method = "none")
-tr.data <- train(norm_subset_endo ~ X121_at + X1255_g_at, 
+tr.data <- train(endo ~ ., 
                  data = endo.train, 
                  method = "knn", 
                  trControl = fitControl, 
-                 tuneGrid= data.frame(k = 11))
+                 tuneGrid= data.frame(k = 10))
 
 # obtain matrix to compare accuracy
 confusionMatrix(data = predict(endo.train, newdata = endo.test), 
-                reference = endo.test$norm_subset_endo)
+                reference = endo.test$endo)
 
 
 
-
-# extra: maybe another way to split train and test
+# EXTRA/OPTIONAL: maybe another way to split train and test
 set.seed(5)
 
-# randomly sample 800 observations from the data
+# randomly sample 800 observations from the data to put into training
 trainingObs <- sample(1:nrow(norm_subset), 800)
 
 # split into the training and test data
 training <- OJ[trainingObs,]
 test <- OJ[-trainingObs,]
 ```
+
+\newpage
+
+# Random Forests
+
+``` {r}
+# set tuning method and parameter
+control <- trainControl(method = "oob")
+mtry.tune <- data.frame(mtry = 1:15)
+
+# run and optimize random forest with ntree = 250
+set.seed(4747)
+rf.250 <- train(endo ~ ., data = core_genes, method = "rf", 
+                trControl = control, na.action = na.roughfix, 
+                tuneGrid = mtry.tune, ntree = 250, importance = TRUE)
+rf.250$finalModel
+
+# run with ntree = 300
+set.seed(4747)
+rf.300 <- train(endo ~ ., data = core_genes, method = "rf", 
+                 trControl = control, na.action = na.roughfix, 
+                 tuneGrid = mtry.tune, ntree = 300, importance = TRUE)
+rf.300$finalModel
+
+# run with ntree = 400
+set.seed(4747)
+rf.400 <- train(endo ~ ., data = core_genes, method = "rf", 
+                 trControl = control, na.action = na.roughfix, 
+                 tuneGrid = mtry.tune, ntree = 400, importance = TRUE)
+rf.400$finalModel
+
+# run with ntree = 500
+set.seed(4747)
+rf.500 <- train(endo ~ ., data = core_gene, method = "rf", 
+                 trControl = control, na.action = na.roughfix, 
+                 tuneGrid = mtry.tune, ntree = 500, importance = TRUE)
+rf.500$finalModel
+
+# run with ntree = 550
+set.seed(4747)
+rf.550 <- train(endo ~ ., data = core_genes, method = "rf", 
+                 trControl = control, na.action = na.roughfix, 
+                 tuneGrid = mtry.tune, ntree = 550, importance = TRUE)
+rf.550$finalModel
+
+# run with ntree = 600
+set.seed(4747)
+rf.600 <- train(endo ~ ., data = core_gene, method = "rf", 
+                 trControl = control, na.action = na.roughfix, 
+                 tuneGrid = mtry.tune, ntree = 600, importance = TRUE)
+rf.600$finalModel
+
+# run with ntree = 700
+set.seed(4747)
+rf.700 <- train(endo ~ ., data = core_genes, method = "rf", 
+                 trControl = control, na.action = na.roughfix, 
+                 tuneGrid = mtry.tune, ntree = 700, importance = TRUE)
+rf.700$finalModel
+
+# run with ntree = 800
+set.seed(4747)
+rf.800 <- train(endo ~ ., data = core_genes, method = "rf", 
+                 trControl = control, na.action = na.roughfix, 
+                 tuneGrid = mtry.tune, ntree = 800, importance = TRUE)
+rf.800$finalModel
+
+# run with ntree = 900
+set.seed(4747)
+rf.900 <- train(endo ~ ., data = core_genes, method = "rf", 
+                 trControl = control, na.action = na.roughfix, 
+                 tuneGrid = mtry.tune, ntree = 900, importance = TRUE)
+rf.900$finalModel
+
+# run with ntree = 1000
+set.seed(4747)
+rf.1000 <- train(endo ~ ., data = core_genes, method = "rf", 
+                 trControl = control, na.action = na.roughfix, 
+                 tuneGrid = mtry.tune, ntree = 1000, importance=TRUE)
+rf.1000$finalModel
+```
+
+We found that a Random Forests model with ntree = 500 and mtry = 7 works optimally.
+
+``` {r}
+# build the final model with mtry = 7 and ntree = 500
+set.seed(4747)
+rf.final <- train(endo ~ ., data = core_genes, method = "rf", 
+                 na.action = na.roughfix, 
+                 tuneGrid = data.frame(mtry = 7), ntree = 500, importance=TRUE)
+
+rf.final$finalModel
+```
+
+
+To confirm that this optimization worked, I will apply the same parameters using the RandomForests() function rather than the `caret` package. We obtain a similar OOB error rate/accuracy.
+
+``` {r}
+# try using Random Forest function
+set.seed(4)
+rf.function <- randomForest(endo ~ ., data = core_genes, mtry = 7, ntree = 500, importance = TRUE)
+rf.function
+```
+
+\newpage
+
+# SVM
+
+We use linear SVM because the relationship between the Endo vs no Endo is that one is two times the other (a linear separation). We have to tune the cost: 'C' parameter, which tells the SVM optimization how much you want to avoid misclassifying each training example. For large values of C, the optimization will choose a smaller-margin hyperplane if that hyperplane does a better job of getting all the training points classified correctly. Conversely, a very small value of C will cause the optimizer to look for a larger-margin separating hyperplane, even if that hyperplane misclassifies more points.
+
+### Single SVM on entire data
+
+```{r, warnings = FALSE}
+set.seed(47)
+
+# create vector for costs
+cost <- c(0.001, 0.01, 0.1, 1, 5, 10, 100, 1000)
+
+# fit linear support vector classifier
+svmL <- train(endo ~ ., data = core_genes, method="svmLinear", 
+                 trControl = trainControl(method = "cv"),
+                 tuneGrid = expand.grid(C = cost),
+                 preProcess = c("center", "scale"))
+
+# output the results
+svmL
+```
+
+
+### SVM on one set of training vs. test
+
+Redoing SVM but with training vs. test data
+
+``` {r}
+# set seed to create training set
+set.seed(47)
+
+# create training and test data
+train <- sample(nrow(core_genes), 118)
+train_core <- core_genes[train,]
+test_core <- core_genes[-train,]
+
+# fit linear support vector classifier, tuning the cost parameter
+cost <- c(0.001, 0.01, 0.1, 1, 5, 10, 100, 1000)
+cost2 <- 10^seq(-2, 1, by = 0.25)
+
+set.seed(47)
+trainSVM <- train(endo ~ ., data = train_core, method = "svmLinear", 
+                 trControl = trainControl(method = "cv"),
+                 tuneGrid = expand.grid(C = cost),
+                 preProcess = c("center", "scale"))
+
+# output results
+trainSVM$finalModel
+
+# predict the test data
+test.predict <- predict(trainSVM, test_core)
+confusion_matrix <- table(test_core$endo, test.predict)
+
+# calculate test error rate
+linearError <-  (confusion_matrix[1,2] + confusion_matrix[2,1]) / sum(confusion_matrix)
+linearError
+```
+
+We obtain an optimal SVM model with cost, C = 0.1. The training accuracy associated with this cost parameter is 0.785. When applied to the test set, we obtain a test error rate of 0.20. 
+
+### SVM on 10-fold test validation
+
+Now, we use Edie's code to 10-fold CV on test data.
+
+``` {r}
+cost <- c(0.001, 0.01, 0.1, 1, 5, 10, 100, 1000)
+
+ten_fold <- sapply(1:100, function(t) {
+  random_ix <- sample(x=c(1:148), size=round(148*0.8), replace=FALSE)
+  random_ix_2 <- setdiff(c(1:148), random_ix)
+  
+  train_core <- core_genes[random_ix,]
+  test_core <- core_genes[-random_ix,]
+
+  trainSVM <- train(endo ~ ., data = train_core, method = "svmLinear", 
+                 trControl = trainControl(method = "none"),
+                 tuneGrid = expand.grid(C = 0.10),
+                 preProcess = c("center", "scale"))
+  
+  test.predict <- predict(trainSVM, test_core)
+  
+  confusion_matrix <- table(test_core$endo, test.predict)
+  
+  linearError <-  (confusion_matrix[1,2] + confusion_matrix[2,1]) / sum(confusion_matrix)
+  linearError
+})
+
+mean(ten_fold)
+
+```
+
+
