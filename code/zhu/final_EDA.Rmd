@@ -1,0 +1,63 @@
+---
+title: "Core_EDA"
+author: "Hengcheng Zhu"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r}
+core_data <- read.csv("C:/Users/ZHC/Desktop/STAT 245C/FINAL PROJECT/core_data.csv")
+res <- prcomp(core_data[,-c(1:5)])
+```
+     
+# PCA by endometriosis      
+```{r message=FALSE, warning=FALSE}
+library(ggfortify)
+autoplot(res, data = core_data, colour="endometriosis")
+```
+
+    
+# PCA by severity    
+```{r message=FALSE, warning=FALSE}
+autoplot(res, data = core_data, colour="severity")
+```      
+     
+#Clustering by endometriosis
+```{r message=FALSE, warning=FALSE}
+library(rafalib)   
+core <- core_data[,-c(1:5)]
+dist_core <- dist(core)
+endometriosis <- as.character(core_data[,4])
+severity <- as.character(core_data[,5])
+hc_raw <- hclust(dist_core)
+myplclust(hc_raw, labels=endometriosis, lab.col=as.fumeric(endometriosis), cex=0.5)
+```       
+      
+# Clustering by severity      
+```{r message=FALSE, warning=FALSE}
+myplclust(hc_raw, labels=severity, lab.col=as.fumeric(severity), cex=0.5)
+```       
+    
+      
+# Heapmap by endometriosis    
+```{r message=FALSE, warning=FALSE}
+library(gplots)
+library(RColorBrewer) 
+library(rafalib)
+hmcol <- colorRampPalette(brewer.pal(9, "GnBu"))(100)
+cols <- palette(brewer.pal(8, "Dark2"))[as.fumeric(endometriosis)]
+heatmap.2(as.matrix(dist_core), labCol=endometriosis,
+          trace="none", 
+          ColSideColors=cols, 
+          col=hmcol)
+```
+      
+# Heatmap by severity     
+```{r message=FALSE, warning=FALSE}
+cols <- palette(brewer.pal(8, "Dark2"))[as.fumeric(severity)]
+heatmap.2(as.matrix(dist_core), labCol=severity,
+          trace="none", 
+          ColSideColors=cols, 
+          col=hmcol)
+```    
