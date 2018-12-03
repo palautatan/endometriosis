@@ -50,5 +50,29 @@ head(ending_cut)
 ```
 
 ```{r}
-write.csv(ending_cut, "../../data/genbank/core_data.csv")
+library(dplyr)
+core_df <- cbind(core_genes, which(abs(d)>1))
+core_df <- data.frame(core_df) %>%
+  rename(log2expression=V2) %>% arrange(log2expression)
+head(core_df)
+```
+
+```{r}
+probes <- core_df %>% filter(grepl("probe", core_genes))
+probe_names <- as.character(probes %>% pull(core_genes))
+probe_names <- gsub("probe_", "", probe_names)
+probe_names
+```
+
+**SCD**
+http://gluegrant1.stanford.edu/~DIC/tissue_comparison/probeset.php?probeset=223839_s_at
+
+**LOC389831**
+http://gluegrant1.stanford.edu/~DIC/tissue_comparison/probeset.php?probeset=225062_at
+
+**FAM72A**
+http://gluegrant1.stanford.edu/~DIC/tissue_comparison/probeset.php?probeset=225834_at
+
+```{r}
+# write.csv(ending_cut, "../../data/genbank/core_data.csv")
 ```
