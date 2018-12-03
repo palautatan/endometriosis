@@ -1,0 +1,215 @@
+﻿Probe.Set.ID,Gene.Symbol,Gene.Title,Fold.Change: PE.E - PE.NE.UPP,Fold.Change: ESE.E - ESE.NE.UPP,Fold.Change: MSE.E - MSE.NE.UPP
+216348_at,RPS17,ribosomal protein S17,1.598569335,NA,NA
+210499_s_at,PQBP1,polyglutamine binding protein 1,1.539259265,NA,NA
+215889_at,SKIL,SKI-like oncogene,-1.544351208,NA,NA
+215074_at,MYO1B,myosin IB,-1.545868834,NA,NA
+200697_at,HK1,hexokinase 1,-1.561810627,NA,NA
+221909_at,RNFT2,"ring finger protein, transmembrane 2",-1.594589493,NA,NA
+240765_at,---,---,-1.622902578,NA,NA
+204967_at,SHROOM2,shroom family member 2,-1.6421728,NA,NA
+213720_s_at,SMARCA4,"SWI/SNF related, matrix associated, actin dependent regulator of chromatin, subfamily a, member 4",-1.651846476,NA,NA
+216466_at,NAV3,neuron navigator 3,-1.696248566,NA,NA
+224774_s_at,NAV1,neuron navigator 1,-1.702183216,NA,NA
+32069_at,N4BP1,NEDD4 binding protein 1,-1.718628866,NA,NA
+222113_s_at,EPS15L1,epidermal growth factor receptor pathway substrate 15-like 1,-1.734997969,NA,NA
+218457_s_at,DNMT3A,DNA (cytosine-5-)-methyltransferase 3 alpha,-1.744444394,NA,NA
+210674_s_at,PCDHA1 /// PCDHA10 /// PCDHA11 /// PCDHA12 /// PCDHA13 /// PCDHA2 /// PCDHA3 /// PCDHA4 /// PCDHA5 /// PCDHA6 /// PCDHA7 /// PCDHA8 /// PCDHA9 /// PCDHAC1 /// PCDHAC2,"protocadherin alpha 1 /// protocadherin alpha 10 /// protocadherin alpha 11 /// protocadherin alpha 12 /// protocadherin alpha 13 /// protocadherin alpha 2 /// protocadherin alpha 3 /// protocadherin alpha 4 /// protocadherin alpha 5 /// protocadherin alpha 6 /// protocadherin alpha 7 /// protocadherin alpha 8 /// protocadherin alpha 9 /// protocadherin alpha subfamily C, 1 /// protocadherin alpha subfamily C, 2",-1.782337355,NA,NA
+204506_at,PPP3R1,"protein phosphatase 3, regulatory subunit B, alpha",-1.799811512,NA,NA
+200815_s_at,PAFAH1B1,"platelet-activating factor acetylhydrolase 1b, regulatory subunit 1 (45kDa)",-1.80106328,NA,NA
+231815_at,PHF12,PHD finger protein 12,-1.811348522,NA,NA
+228906_at,TET1,tet oncogene 1,-1.813898385,NA,NA
+230508_at,DKK3,dickkopf homolog 3 (Xenopus laevis),-1.825956838,NA,NA
+217297_s_at,MYO9B,myosin IXB,-1.946491571,NA,NA
+242374_at,---,---,-1.947187404,NA,NA
+236708_at,---,---,-1.958924915,NA,NA
+235925_at,---,---,-1.978756075,NA,NA
+1554593_s_at,SLC1A6,"solute carrier family 1 (high affinity aspartate/glutamate transporter), member 6",-1.987440654,NA,NA
+227339_at,RGMB,"RGM domain family, member B",-2.000645367,NA,NA
+243332_at,---,---,-2.020106753,NA,NA
+238688_at,TPM1,Tropomyosin 1 (alpha),-2.080901072,NA,NA
+202679_at,NPC1,"Niemann-Pick disease, type C1",-2.082443692,NA,NA
+239348_at,---,---,-2.095551084,NA,NA
+1557553_at,PPP1R12B,"protein phosphatase 1, regulatory (inhibitor) subunit 12B",-2.125386665,NA,NA
+1569652_at,MLLT3,"myeloid/lymphoid or mixed-lineage leukemia (trithorax homolog, Drosophila); translocated to, 3",-2.175557908,NA,NA
+217525_at,OLFML1,olfactomedin-like 1,-2.208706648,NA,NA
+239567_at,---,---,-2.330505353,NA,NA
+1558828_s_at,LOC728264,Hypothetical LOC728264,-2.375014545,NA,NA
+243588_at,---,---,-2.383756446,NA,NA
+233824_at,---,---,-2.501390486,NA,NA
+227354_at,PAG1,phosphoprotein associated with glycosphingolipid microdomains 1,-2.57084677,NA,NA
+239537_at,ST8SIA2,"ST8 alpha-N-acetyl-neuraminide alpha-2,8-sialyltransferase 2",-2.598773803,NA,NA
+237290_at,---,---,-2.652914517,NA,NA
+1566482_at,---,---,-2.665292445,NA,NA
+232058_at,---,---,-2.740580758,NA,NA
+1555847_a_at,LOC284454,hypothetical LOC284454,-2.856203592,NA,NA
+238204_at,---,---,-2.87022242,NA,NA
+243140_at,ACTA2,"Actin, alpha 2, smooth muscle, aorta",-3.003203702,NA,NA
+1553275_s_at,---,---,-3.017042181,NA,NA
+241837_at,---,---,-3.047354486,NA,NA
+228919_at,---,---,-3.301923433,NA,NA
+222802_at,EDN1,endothelin 1,-3.504486026,NA,NA
+201289_at,CYR61,"cysteine-rich, angiogenic inducer, 61",-4.315188266,NA,NA
+238481_at,MGP,matrix Gla protein,-4.815296158,NA,NA
+235922_at,---,---,-5.635050383,NA,NA
+210764_s_at,CYR61,"cysteine-rich, angiogenic inducer, 61",-6.325173798,NA,NA
+224676_at,TMED4,transmembrane emp24 protein transport domain containing 4,NA,3.289187171,NA
+228019_s_at,MRPS18C,mitochondrial ribosomal protein S18C,NA,2.363429618,NA
+222401_s_at,TMEM50A,transmembrane protein 50A,NA,2.017603993,NA
+224395_s_at,RNF7,ring finger protein 7,NA,1.898250797,NA
+208742_s_at,SAP18,"Sin3A-associated protein, 18kDa",NA,1.863606077,NA
+225359_at,DNAJC19,"DnaJ (Hsp40) homolog, subfamily C, member 19",NA,1.86139761,NA
+219119_at,NAA38,"N(alpha)-acetyltransferase 38, NatC auxiliary subunit",NA,1.846498603,NA
+224334_s_at,MRPL51 /// SPTLC1,"mitochondrial ribosomal protein L51 /// serine palmitoyltransferase, long chain base subunit 1",NA,1.718371562,NA
+229021_at,MCTP2,"multiple C2 domains, transmembrane 2",NA,1.662418392,NA
+202298_at,NDUFA1,"NADH dehydrogenase (ubiquinone) 1 alpha subcomplex, 1, 7.5kDa",NA,1.634203346,NA
+203090_at,SDF2,stromal cell-derived factor 2,NA,1.597335998,NA
+244691_at,SETD5,SET domain containing 5,NA,-1.505291762,NA
+212976_at,LRRC8B,"leucine rich repeat containing 8 family, member B",NA,-1.520792594,NA
+215386_at,---,---,NA,-1.533782381,NA
+224029_x_at,SCN11A,"sodium channel, voltage-gated, type XI, alpha subunit",NA,-1.568802971,NA
+1561733_at,---,---,NA,-1.618110391,NA
+215398_at,---,---,NA,-1.715152764,NA
+232919_at,LOC100289297,Hypothetical protein LOC100289297,NA,-1.718874164,NA
+214976_at,RPL13,ribosomal protein L13,NA,-1.753380958,NA
+240279_at,---,---,NA,-1.754457482,NA
+217841_s_at,PPME1,protein phosphatase methylesterase 1,NA,-1.7832294,NA
+1553890_s_at,NTN5,netrin 5,NA,-1.819508587,NA
+1559375_s_at,---,---,NA,-1.82083917,NA
+221813_at,FBXO42,F-box protein 42,NA,-1.835073174,NA
+239648_at,DCUN1D3,"DCN1, defective in cullin neddylation 1, domain containing 3 (S. cerevisiae)",NA,-1.893773955,NA
+211342_x_at,MED12,mediator complex subunit 12,NA,-1.91548468,NA
+220791_x_at,SCN11A,"sodium channel, voltage-gated, type XI, alpha subunit",NA,-1.917370786,NA
+233393_at,---,---,NA,-1.933821586,NA
+244841_at,SEC24A,"SEC24 family, member A (S. cerevisiae)",NA,-1.984984696,NA
+222337_at,---,---,NA,-2.003693153,NA
+1560033_at,MCCC2,methylcrotonoyl-CoA carboxylase 2 (beta),NA,-2.154278233,NA
+240789_at,---,---,NA,-2.181554274,NA
+233771_at,---,---,NA,-2.214940659,NA
+1569030_s_at,NUB1,negative regulator of ubiquitin-like proteins 1,NA,-2.249771808,NA
+236431_at,SR140,U2-associated SR140 protein,NA,-2.456521353,NA
+1563453_at,---,---,NA,-2.479772948,NA
+240407_at,LOC100126784,hypothetical LOC100126784,NA,-2.64127401,NA
+242849_at,---,---,NA,-2.680668746,NA
+1559529_at,PTK2,PTK2 protein tyrosine kinase 2,NA,-2.822060013,NA
+1552258_at,NCRNA00152,non-protein coding RNA 152,NA,-2.94795579,NA
+224979_s_at,USP36,ubiquitin specific peptidase 36,NA,-2.965386618,NA
+237194_at,---,---,NA,-3.185369931,NA
+226764_at,ZNF827,zinc finger protein 827,NA,-3.248883023,NA
+244665_at,---,---,NA,-3.480473834,NA
+1554825_at,---,---,NA,-4.719058522,NA
+206396_at,SLC1A1,"solute carrier family 1 (neuronal/epithelial high affinity glutamate transporter, system Xag), member 1",NA,NA,5.607084354
+205765_at,CYP3A5,"cytochrome P450, family 3, subfamily A, polypeptide 5",NA,NA,4.883081635
+214234_s_at,CYP3A5,"cytochrome P450, family 3, subfamily A, polypeptide 5",NA,NA,4.790912579
+1560522_at,LOC201477,hypothetical protein LOC201477,NA,NA,3.378843156
+214235_at,CYP3A5,"cytochrome P450, family 3, subfamily A, polypeptide 5",NA,NA,3.325511101
+212225_at,EIF1,eukaryotic translation initiation factor 1,NA,NA,3.038903882
+214528_s_at,PAX8,paired box 8,NA,NA,3.01318949
+207924_x_at,PAX8,paired box 8,NA,NA,2.990053496
+209641_s_at,ABCC3,"ATP-binding cassette, sub-family C (CFTR/MRP), member 3",NA,NA,2.943447121
+238689_at,GPR110,G protein-coupled receptor 110,NA,NA,2.656767438
+235594_at,AIMP1,Aminoacyl tRNA synthetase complex-interacting multifunctional protein 1,NA,NA,2.58233303
+210513_s_at,VEGFA,vascular endothelial growth factor A,NA,NA,2.555194363
+225043_at,SLC15A4,"solute carrier family 15, member 4",NA,NA,2.435311652
+211555_s_at,GUCY1B3,"guanylate cyclase 1, soluble, beta 3",NA,NA,2.355170675
+235186_at,LOC388692,hypothetical LOC388692,NA,NA,1.892793595
+224261_at,---,---,NA,NA,1.853751105
+216940_x_at,YBX1 /// YBX1P2,Y box binding protein 1 /// Y box binding protein 1 pseudogene 2,NA,NA,1.757269508
+213807_x_at,MET,met proto-oncogene (hepatocyte growth factor receptor),NA,NA,1.753961255
+207923_x_at,PAX8,paired box 8,NA,NA,1.732852985
+47571_at,ZNF236,zinc finger protein 236,NA,NA,1.65065853
+232540_x_at,---,---,NA,NA,1.649321771
+208414_s_at,HOXB3,homeobox B3,NA,NA,1.63643921
+217475_s_at,LIMK2,LIM domain kinase 2,NA,NA,1.592355237
+215027_at,RAPGEF3,Rap guanine nucleotide exchange factor (GEF) 3,NA,NA,1.582911005
+229030_at,CAPN8,calpain 8,NA,NA,1.574791968
+230541_at,LOC149134,hypothetical LOC149134,NA,NA,1.56691738
+204111_at,HNMT,histamine N-methyltransferase,NA,NA,1.564941418
+214831_at,ELK4,"ELK4, ETS-domain protein (SRF accessory protein 1)",NA,NA,1.543261438
+1556687_a_at,CLDN10,claudin 10,NA,NA,1.540145992
+216791_at,---,---,NA,NA,1.535500876
+200879_s_at,EPAS1,endothelial PAS domain protein 1,NA,NA,1.514016051
+226093_at,DCP1B,DCP1 decapping enzyme homolog B (S. cerevisiae),NA,NA,-1.506309974
+212078_s_at,MLL,"myeloid/lymphoid or mixed-lineage leukemia (trithorax homolog, Drosophila)",NA,NA,-1.513865124
+235119_at,TAF3,"TAF3 RNA polymerase II, TATA box binding protein (TBP)-associated factor, 140kDa",NA,NA,-1.529395498
+1558518_at,TAB3,TGF-beta activated kinase 1/MAP3K7 binding protein 3,NA,NA,-1.568311297
+237689_at,SARS,Seryl-tRNA synthetase,NA,NA,-1.5695665
+242163_at,THRAP3,thyroid hormone receptor associated protein 3,NA,NA,-1.593104317
+218508_at,DCP1A,DCP1 decapping enzyme homolog A (S. cerevisiae),NA,NA,-1.613638449
+203742_s_at,TDG,thymine-DNA glycosylase,NA,NA,-1.644877867
+201612_at,ALDH9A1,"aldehyde dehydrogenase 9 family, member A1",NA,NA,-1.70055392
+241620_at,SMCHD1,structural maintenance of chromosomes flexible hinge domain containing 1,NA,NA,-1.733146993
+200049_at,MYST2,MYST histone acetyltransferase 2,NA,NA,-1.759571735
+225383_at,ZNF275,zinc finger protein 275,NA,NA,-1.783374773
+222806_s_at,C11orf30,chromosome 11 open reading frame 30,NA,NA,-1.886840805
+201569_s_at,SAMM50,sorting and assembly machinery component 50 homolog (S. cerevisiae),NA,NA,-1.899567486
+244347_at,---,---,NA,NA,-1.942004382
+226069_at,PRICKLE1,prickle homolog 1 (Drosophila),NA,NA,-1.963198087
+242549_at,PRKD3,protein kinase D3,NA,NA,-2.000881227
+212055_at,C18orf10,chromosome 18 open reading frame 10,NA,NA,-2.02443046
+226762_at,PURB,purine-rich element binding protein B,NA,NA,-2.066374871
+235653_s_at,THAP6,THAP domain containing 6,NA,NA,-2.071332294
+243648_at,ZBED6,"zinc finger, BED-type containing 6",NA,NA,-2.118535214
+1554168_a_at,SH3KBP1,SH3-domain kinase binding protein 1,NA,NA,-2.131229814
+223600_s_at,KIAA1683,KIAA1683,NA,NA,-2.13648797
+212487_at,GPATCH8,G patch domain containing 8,NA,NA,-2.158693694
+1561615_s_at,SLC8A1,"solute carrier family 8 (sodium/calcium exchanger), member 1",NA,NA,-2.175167128
+239571_at,---,---,NA,NA,-2.188073266
+228986_at,OSBPL8,oxysterol binding protein-like 8,NA,NA,-2.192086369
+226843_s_at,PAPD5,PAP associated domain containing 5,NA,NA,-2.272538828
+202067_s_at,LDLR,low density lipoprotein receptor,NA,NA,-2.34484112
+208624_s_at,EIF4G1,"eukaryotic translation initiation factor 4 gamma, 1",NA,NA,-2.428681989
+201182_s_at,CHD4,chromodomain helicase DNA binding protein 4,NA,NA,-2.439340566
+243874_at,LPP,LIM domain containing preferred translocation partner in lipoma,NA,NA,-2.462838604
+236620_at,RIF1,RAP1 interacting factor homolog (yeast),NA,NA,-2.473874061
+217059_at,MUC7,"mucin 7, secreted",NA,NA,-2.497505869
+222439_s_at,THRAP3,thyroid hormone receptor associated protein 3,NA,NA,-2.534123291
+237716_at,---,---,NA,NA,-2.577266909
+1556744_a_at,---,---,NA,NA,-2.848062276
+1558173_a_at,LUZP1,leucine zipper protein 1,NA,NA,-2.858765075
+232113_at,---,---,NA,NA,-3.034882111
+201085_s_at,SON,SON DNA binding protein,NA,NA,-3.055289542
+211947_s_at,BAT2L2,HLA-B associated transcript 2-like 2,NA,NA,-3.260119164
+205559_s_at,PCSK5,proprotein convertase subtilisin/kexin type 5,NA,NA,-3.343814902
+227657_at,RNF150,ring finger protein 150,NA,NA,-3.615059526
+232098_at,DST,dystonin,NA,NA,-3.822387742
+238735_at,---,---,NA,NA,-3.863156562
+1558695_at,---,---,NA,NA,-4.718322115
+243480_at,---,---,-1.519894901,-2.453135287,NA
+239646_at,---,---,-1.581032655,-2.566500624,NA
+201377_at,UBAP2L,ubiquitin associated protein 2-like,-1.621861459,-1.716522142,NA
+201703_s_at,PPP1R10,"protein phosphatase 1, regulatory (inhibitor) subunit 10",-1.638873121,-1.999319394,NA
+232476_at,---,---,-1.763296586,-2.264550417,NA
+1563458_at,PARVA,"parvin, alpha",-1.80103744,-2.279799658,NA
+243827_at,---,---,-2.075629153,-3.019447099,NA
+235646_at,---,---,-2.092132086,-2.256160841,NA
+1564378_a_at,---,---,-2.332536095,-3.334478878,NA
+1562056_at,---,---,-3.651914531,-4.671545563,NA
+233289_at,---,---,NA,2.136487803,2.666667521
+201677_at,C3orf37,Chromosome 3 open reading frame 37,NA,-1.629537923,-1.518273648
+1559566_at,FBXO42,F-box protein 42,NA,-1.858734862,-1.623369844
+233692_at,---,---,NA,-1.875149757,-1.515786509
+1565639_a_at,---,---,NA,-2.181769418,-1.791207601
+223254_s_at,G2E3,G2/M-phase specific E3 ubiquitin protein ligase,-1.591250581,NA,-1.975028401
+237703_at,---,---,-1.624285229,NA,-1.658588743
+204566_at,PPM1D,"protein phosphatase, Mg2+/Mn2+ dependent, 1D",-1.668459976,NA,-1.759893341
+215408_at,---,---,-1.703776399,NA,-1.660935898
+200835_s_at,MAP4,microtubule-associated protein 4,-1.821849151,NA,-2.473451904
+1563497_at,USP25,ubiquitin specific peptidase 25,-1.935544806,NA,-2.165817845
+226082_s_at,SFRS15,"splicing factor, arginine/serine-rich 15",-2.022186493,NA,-1.997678336
+238013_at,PLEKHA2,"pleckstrin homology domain containing, family A (phosphoinositide binding specific) member 2",-2.06921247,NA,-2.463845057
+240231_at,---,---,-2.149189777,NA,-2.077669737
+232369_at,---,---,-2.168945726,NA,-2.81595003
+240499_at,---,---,-2.179288096,NA,-2.295384217
+239258_at,---,---,-2.203130747,NA,-2.510670696
+235977_at,LONRF2,LON peptidase N-terminal domain and ring finger 2,-2.267646961,NA,-2.605950423
+232865_at,AFF4,"AF4/FMR2 family, member 4",-2.442530841,NA,-2.494219049
+215092_s_at,NFAT5,"nuclear factor of activated T-cells 5, tonicity-responsive",-2.586913133,NA,-3.009235583
+205560_at,PCSK5,proprotein convertase subtilisin/kexin type 5,-3.092652314,NA,-2.865380294
+235419_at,---,---,-4.233461985,NA,-7.0780715
+215235_at,SPTAN1,"spectrin, alpha, non-erythrocytic 1 (alpha-fodrin)",-1.537538158,-1.936627551,-1.796909612
+235959_at,---,---,-1.687439829,-2.752090831,-1.707360545
+215611_at,TCF12,transcription factor 12,-1.693552034,-2.194337733,-1.700125336
+1556818_at,---,---,-2.047147529,-2.742259277,-1.789850934
+232783_at,---,---,-2.049284466,-4.152814788,-2.398980525
+239404_at,---,---,-2.050203104,-2.926214594,-1.912260023
+232174_at,---,---,-3.023210706,-5.856206702,-3.13481061

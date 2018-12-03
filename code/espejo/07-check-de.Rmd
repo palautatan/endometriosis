@@ -1,0 +1,53 @@
+---
+title: "Checking DE genes"
+author: "Edie Espejo"
+date: "12/3/2018"
+output: html_document
+---
+
+```{r}
+de_genes <- read.csv("../../data/table-5a.csv")[,1:2]
+de_genes_2 <- read.csv("../../data/table-5b.csv")[,1:2]
+de_genes_overall <- union(de_genes[,2], de_genes_2[,2])
+
+all_genes <- c(de_genes_overall[!which(grepl("///", de_genes_overall))], do.call(c, strsplit(de_genes_overall[which(grepl("///", de_genes_overall))], " /// ")))
+length(all_genes)
+```
+
+```{r}
+# our_gene_df <- read.csv("../../data/genbank/core-data.csv")[,-1]
+# our_genes   <- names(our_gene_df)[c(5:ncol(our_gene_df))]
+# length(our_genes)
+# which(our_genes %in% all_genes)
+```
+
+
+# Make ML on their data
+
+```{r}
+de_genes <- read.csv("../../data/table-5a.csv")[,1:2]
+nrow(de_genes)
+
+de_genes_2 <- read.csv("../../data/table-5b.csv")[,1:2]
+nrow(de_genes_2)
+
+de_genes_overall <- union(de_genes[,1], de_genes_2[,1])
+
+# all_genes <- c(de_genes_overall[!which(grepl("///", de_genes_overall))], do.call(c, strsplit(de_genes_overall[which(grepl("///", de_genes_overall))], " /// ")))
+# length(all_genes)
+
+head(de_genes_overall)
+length(de_genes_overall)
+```
+
+
+```{r}
+cuts <- list.files("../../data/genbank/01-normalized", full.names=TRUE)
+cuts
+```
+
+```{r}
+this_file    <- read.csv(cuts[2])
+these_probes <- gsub("X", "", colnames(this_file)[-c(1:5)])
+wtf <- which(de_genes_overall %in% these_probes)
+```

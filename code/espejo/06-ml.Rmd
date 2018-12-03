@@ -1,0 +1,62 @@
+---
+title: "Getting machine learning data ready"
+author: "Edie Espejo"
+date: "12/3/2018"
+output: html_document
+---
+
+# 90-10 Split
+
+```{r}
+full_data <- read.csv("../../data/genbank/core-data.csv", as.is=TRUE, stringsAsFactors=FALSE)[,-1]
+head(full_data)
+```
+
+```{r}
+test_n  <- round(nrow(full_data)*0.1)
+train_n <- nrow(full_data) - round(nrow(full_data)*0.1)
+
+c(test_n, train_n)
+```
+
+
+```{r}
+random_ix <- sample(x=c(1:148), test_n)
+random_ix
+```
+
+```{r}
+final_validation <- full_data[random_ix,]
+write.csv(final_validation, "../../data/machine-learning/final_validation.csv")
+```
+
+```{r}
+random_ix_leftover <- setdiff(c(1:148), random_ix)
+model_building     <- full_data[random_ix_leftover,]
+write.csv(model_building, "../../data/machine-learning/model_building.csv")
+```
+
+# 80-20 Split
+```{r}
+test_n  <- round(nrow(full_data)*0.2)
+train_n <- nrow(full_data) - round(nrow(full_data)*0.2)
+
+c(test_n, train_n)
+```
+
+
+```{r}
+random_ix <- sample(x=c(1:148), test_n)
+random_ix
+```
+
+```{r}
+final_validation <- full_data[random_ix,]
+write.csv(final_validation, "../../data/machine-learning/final_validation_2.csv")
+```
+
+```{r}
+random_ix_leftover <- setdiff(c(1:148), random_ix)
+model_building     <- full_data[random_ix_leftover,]
+write.csv(model_building, "../../data/machine-learning/model_building_2.csv")
+```
