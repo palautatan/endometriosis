@@ -27,6 +27,22 @@ colnames(core_genes)[1] <- "endo"
 # kNN
 
 ``` {r}
+# define tuning parameters
+fitControl <- trainControl(method = "cv", number = 5)
+values.k <- data.frame(k = 1:100)
+
+# run kNN model with 5-fold CV and various k's
+set.seed(4747)
+trainKNN <- train(endo ~ ., data = core_genes, method = "knn", trControl = fitControl, tuneGrid = values.k)
+
+# output results to find optimal k
+trainKNN
+```
+
+
+Extra:
+
+``` {r}
 # create training vs. test
 set.seed(47)
 inTrain <- createDataPartition(y=core_genes$endo, p=.747, list=FALSE)
@@ -176,7 +192,7 @@ cost <- c(0.001, 0.01, 0.1, 1, 5, 10, 100, 1000)
 
 # fit linear support vector classifier
 svmL <- train(endo ~ ., data = core_genes, method="svmLinear", 
-                 trControl = trainControl(method = "cv"),
+                 trControl = trainControl(method = "cv", number = 5),
                  tuneGrid = expand.grid(C = cost),
                  preProcess = c("center", "scale"))
 
@@ -240,7 +256,7 @@ ten_fold <- sapply(1:100, function(t) {
                  trControl = trainControl(method = "none"),
                  tuneGrid = expand.grid(C = 0.10),
                  preProcess = c("center", "scale"))
-  
+   
   test.predict <- predict(trainSVM, test_core)
   
   confusion_matrix <- table(test_core$endo, test.predict)
