@@ -65,15 +65,11 @@ write.csv(final_validation, "../../data/machine-learning/mann-whitney/validation
 ```{r}
 random_ix_leftover <- setdiff(c(1:148), random_ix)
 model_building     <- full_data[random_ix_leftover,]
-write.csv(model_building, "../../data/machine-learning/mann-whitney/model-8020")
+write.csv(model_building, "../../data/machine-learning/mann-whitney/model-8020.csv")
 ```
 
 
 ### 90-10 
-```{r}
-full_data <- read.csv("../../data/genbank/06-mw-genes.csv", as.is=TRUE, stringsAsFactors=FALSE)[,-1]
-head(full_data)
-```
 
 ```{r}
 test_n  <- round(nrow(full_data)*0.1)
@@ -96,5 +92,5 @@ write.csv(final_validation, "../../data/machine-learning/mann-whitney/validation
 ```{r}
 random_ix_leftover <- setdiff(c(1:148), random_ix)
 model_building     <- full_data[random_ix_leftover,]
-write.csv(model_building, "../../data/machine-learning/mann-whitney/model-9010")
+write.csv(model_building, "../../data/machine-learning/mann-whitney/model-9010.csv")
 ```

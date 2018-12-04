@@ -10,27 +10,27 @@ output: pdf_document
 # Importing data
 
 ```{r}
-require(caret)  # contains most of the prediction functions we'll use
-require(rpart)  # needed for the plotting
+library(caret)  # contains most of the prediction functions we'll use
+library(rpart)  # needed for the plotting
 library(randomForest)
-require(e1071)
+library(e1071)
 
-# read in the core gene data
-core_data <- read.csv("../../data/genbank/core_data.csv")
+# # read in the core gene data
+core_data <- read.csv("../../../data/genbank/06-twofold-genes.csv")
 core_class <- core_data[,4] # obtain endo classifications
 core_exp <- core_data[,6:387] # expression data
 core_genes <- cbind(core_class, core_exp)
 colnames(core_genes)[1] <- "endo"
 
 # read in training set
-train <- read.csv("../../data/machine-learning/model_building.csv")
+train <- read.csv("../../../data/machine-learning/mann-whitney/model-8020.csv")
 train_class <- train[,4]
 train_exp <- train[,6:387]
 endo_train <- cbind(train_class, train_exp)
 colnames(endo_train)[1] <- "severity"
 
 # read in test set
-test <- read.csv("../../data/machine-learning/final_validation.csv")
+test <- read.csv("../../../data/machine-learning/mann-whitney/validation-8020.csv")
 test_class <- test[,4]
 test_exp <- test[,6:387]
 endo_test <- cbind(test_class, test_exp)
@@ -40,10 +40,10 @@ colnames(endo_test)[1] <- "severity"
 
 # kNN
 
-``` {r}
+```{r}
 # define tuning parameters
 fitControl <- trainControl(method = "cv", number = 5)
-values.k <- data.frame(k = 1:100)
+values.k <- data.frame(k = 1:94)
 
 # run kNN model with 5-fold CV and various k's
 set.seed(4747)
@@ -55,9 +55,9 @@ trainKNN <- train(severity ~ ., data = endo_train,
 trainKNN$finalModel
 ```
 
-Optimal model is k = 51. The associated model-building accuracy with this is 0.7137. 
+Optimal model is k = 13. The associated model-building accuracy with this is 0.43321032. 
 
-We apply this model to the test set of 15 observations. Our test set accuracy is 86.7%.
+We apply this model to the test set of 15 observations. Our test set accuracy is 0.6333333.
 
 ``` {r}
 # obtain accuracy on the OUTER test set with k = 51 model
@@ -74,7 +74,7 @@ knn_accuracy
 
 # Random Forests
 
-``` {r}
+```{r}
 # set tuning method and parameter
 control <- trainControl(method = "oob")
 mtry.tune <- data.frame(mtry = 1:100)
@@ -87,7 +87,10 @@ rf.250 <- train(severity ~ ., data = endo_train, method = "rf",
                 trControl = control, na.action = na.roughfix, 
                 tuneGrid = mtry.tune, ntree = 250, importance = TRUE)
 rf.250$finalModel
+```
 
+
+```{r}
 # run with ntree = 300
 # optimal mtry = 10
 # OOB error = 27.82 %
@@ -96,7 +99,9 @@ rf.300 <- train(severity ~ ., data = endo_train, method = "rf",
                  trControl = control, na.action = na.roughfix, 
                  tuneGrid = mtry.tune, ntree = 300, importance = TRUE)
 rf.300$finalModel
+```
 
+```{r}
 # run with ntree = 400
 # optimal mtry = 17
 # OOB error = 27.07
@@ -105,7 +110,9 @@ rf.400 <- train(severity ~ ., data = endo_train, method = "rf",
                  trControl = control, na.action = na.roughfix, 
                  tuneGrid = mtry.tune, ntree = 400, importance = TRUE)
 rf.400$finalModel
+```
 
+```{r}
 # run with ntree = 500
 # optimal mtry = 17
 # OOB error = 27.82 %
@@ -114,7 +121,9 @@ rf.500 <- train(severity ~ ., data = endo_train, method = "rf",
                  trControl = control, na.action = na.roughfix, 
                  tuneGrid = mtry.tune, ntree = 500, importance = TRUE)
 rf.500$finalModel
+```
 
+```{r}
 # run with ntree = 550
 # optimal mtry = 17
 # OOB error = 29.32 %
@@ -123,7 +132,9 @@ rf.550 <- train(severity ~ ., data = endo_train, method = "rf",
                  trControl = control, na.action = na.roughfix, 
                  tuneGrid = mtry.tune, ntree = 550, importance = TRUE)
 rf.550$finalModel
+```
 
+```{r}
 # run with ntree = 600
 # optimal mtry = 8
 # OOB error = 30.08 %
@@ -132,7 +143,9 @@ rf.600 <- train(severity ~ ., data = endo_train, method = "rf",
                  trControl = control, na.action = na.roughfix, 
                  tuneGrid = mtry.tune, ntree = 600, importance = TRUE)
 rf.600$finalModel
+```
 
+```{r}
 # run with ntree = 700
 # optimal mtry = 17
 # OOB error = 29.32 %
@@ -141,7 +154,9 @@ rf.700 <- train(severity ~ ., data = endo_train, method = "rf",
                  trControl = control, na.action = na.roughfix, 
                  tuneGrid = mtry.tune, ntree = 700, importance = TRUE)
 rf.700$finalModel
+```
 
+```{r}
 # run with ntree = 800
 # optimal mtry = 17
 # OOB error = 27.82 %
@@ -150,7 +165,9 @@ rf.800 <- train(severity ~ ., data = endo_train, method = "rf",
                  trControl = control, na.action = na.roughfix, 
                  tuneGrid = mtry.tune, ntree = 800, importance = TRUE)
 rf.800$finalModel
+```
 
+```{r}
 # run with ntree = 900
 # optimal mtry = 17
 # OOB error = 27.82 %
@@ -159,7 +176,9 @@ rf.900 <- train(severity ~ ., data = endo_train, method = "rf",
                  trControl = control, na.action = na.roughfix, 
                  tuneGrid = mtry.tune, ntree = 900, importance = TRUE)
 rf.900$finalModel
+```
 
+```{r}
 # run with ntree = 1000
 # optimal mtry = 17
 # OOB error = 28.57 %
@@ -172,14 +191,14 @@ rf.1000$finalModel
 
 We found that a Random Forests model with ntree = 400 and mtry = 17 works optimally. The associated model building error with those parameters is 0.7444.
 
-``` {r}
+```{r}
 # build the final model with mtry = 17 and ntree = 400
-rf.final <- rf.400
+rf.final <- rf.250
 ```
 
 To confirm that this optimization worked, I will apply the same parameters using the RandomForests() function rather than the `caret` package. We obtain a similar OOB error rate/accuracy.
 
-``` {r}
+```{r}
 # try using Random Forest function
 set.seed(47)
 rf.function <- randomForest(severity ~ ., data = endo_train, mtry = 17, ntree = 400, importance = TRUE)
@@ -188,7 +207,7 @@ rf.function
 
 Apply this to our test data to obtain the test accuracy. We obtain an accuracy of 86.67%.
 
-``` {r}
+```{r}
 set.seed(47)
 predict_rf <- confusionMatrix(data = predict(rf.final, newdata = endo_test), 
                 reference = endo_test$severity)
@@ -226,7 +245,7 @@ svmL$finalModel
 
 Optimal cost parameter of 0.01. The associated model-building error is 0.7442. 
 
-``` {r}
+```{r}
 predict_svm <- confusionMatrix(data = predict(svmL, newdata = endo_test), 
                 reference = endo_test$severity)
 predict_svm$table
@@ -251,7 +270,7 @@ We obtain an optimal SVM model with cost, C = 0.01. The training accuracy associ
 
 Now, we use Edie's code to 10-fold CV on test data.
 
-``` {r}
+```{r}
 cost <- c(0.001, 0.01, 0.1, 1, 5, 10, 100, 1000)
 
 ten_fold <- sapply(1:100, function(t) {
