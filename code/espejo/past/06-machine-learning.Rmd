@@ -1,0 +1,138 @@
+---
+title: "Machine Learning"
+output: html_document
+---
+
+# Preliminaries
+Create 80-20 test.
+
+```{r}
+starting_cut <- read.csv("../../data/genbank/core-data.csv", stringsAsFactors=FALSE)[,-1]
+gene_exprs   <- dim(starting_cut)[1]
+
+training_set   <- starting_cut[1:round(148*0.8), 5:ncol(starting_cut)]
+validation_set <- starting_cut[(round(148*0.8)+1):nrow(starting_cut), 5:ncol(starting_cut)]
+
+head(training_set)
+```
+
+# K-Nearest Neighbors
+KNN requires no assumptions. We just need a choice of k.
+
+## Choosing value of k
+
+```{r}
+install.packages("caret")
+library(caret)
+
+train(training_set ~ validation_set, method="knn")
+```
+
+```{r}
+grid = expand.grid(k = seq(0,200,20)[-1])
+grid
+
+species_knn = train(Species ~., method= "knn",
+                    data = iris,
+                    trControl = trainControl(method = 'cv',
+                                             number = 3,
+                                             search = "grid"),
+                     tuneGrid = grid)
+species_knn$results
+```
+
+```{r}
+library(class)
+truth     <- starting_cut[(round(148*0.8)+1):nrow(starting_cut), 3]
+k_values  <- c(5, 10, 15, 50, 100)
+```
+
+```{r}
+knn_stuff <- lapply(k_values, function(k) {
+  sapply(1:100, function(m) {
+    predicted <- knn(train=training_set, test=validation_set, cl=starting_cut[1:round(148*0.8), 3], k=k)
+    confusion_matrix <- cbind(fitted=as.character(predicted), actual=truth)
+    length(which(confusion_matrix[,1]==confusion_matrix[,2])) / length(truth)
+  })
+})
+```
+
+```{r}
+library(dplyr)
+data.frame(do.call(cbind, knn_stuff)) %>% summarize_all(mean) %>% rename(k5=X1, k10=X2, k15=X3, k50=X4, k100=X5)
+```
+
+I will proceed to with $k=50$.
+
+
+## Randomizing validation sets
+We are going to do 10-fold cross validation.
+
+```{r}
+set.seed(926)
+random_ix <- sample(x=c(1:148), size=round(148*0.8), replace=FALSE)
+random_ix_2 <- setdiff(c(1:148), random_ix)
+```
+
+```{r}
+random_train      <- starting_cut[random_ix ,5:ncol(starting_cut)]
+random_validation <- starting_cut[random_ix_2 ,5:ncol(starting_cut)]
+```
+
+
+```{r}
+ten_fold <- sapply(1:100, function(t) {
+  random_ix   <- sample(x=c(1:148), size=round(148*0.8), replace=FALSE)
+  random_ix_2 <- setdiff(c(1:148), random_ix)
+  
+  truth     <- starting_cut[random_ix, 3]
+  truth_2   <- starting_cut[random_ix_2, 3]
+  
+  random_train      <- starting_cut[random_ix ,5:ncol(starting_cut)]
+  random_validation <- starting_cut[random_ix_2 ,5:ncol(starting_cut)]
+  
+  predicted <- knn(train=random_train, test=random_validation, cl=truth, k=45)
+  confusion_matrix <- cbind(fitted=as.character(predicted), actual=truth_2)
+  length(which(confusion_matrix[,1]==confusion_matrix[,2])) / length(truth_2)
+})
+
+mean(ten_fold)
+```
+
+```{r}
+ten_fold <- sapply(1:100, function(t) {
+  random_ix   <- sample(x=c(1:148), size=round(148*0.8), replace=FALSE)
+  random_ix_2 <- setdiff(c(1:148), random_ix)
+  
+  truth     <- starting_cut[random_ix, 3]
+  truth_2   <- starting_cut[random_ix_2, 3]
+  
+  random_train      <- starting_cut[random_ix ,5:ncol(starting_cut)]
+  random_validation <- starting_cut[random_ix_2 ,5:ncol(starting_cut)]
+  
+  predicted <- knn(train=random_train, test=random_validation, cl=truth, k=50)
+  confusion_matrix <- cbind(fitted=as.character(predicted), actual=truth_2)
+  length(which(confusion_matrix[,1]==confusion_matrix[,2])) / length(truth_2)
+})
+
+mean(ten_fold)
+```
+
+```{r}
+ten_fold <- sapply(1:100, function(t) {
+  random_ix   <- sample(x=c(1:148), size=round(148*0.8), replace=FALSE)
+  random_ix_2 <- setdiff(c(1:148), random_ix)
+  
+  truth     <- starting_cut[random_ix, 3]
+  truth_2   <- starting_cut[random_ix_2, 3]
+  
+  random_train      <- starting_cut[random_ix ,5:ncol(starting_cut)]
+  random_validation <- starting_cut[random_ix_2 ,5:ncol(starting_cut)]
+  
+  predicted <- knn(train=random_train, test=random_validation, cl=truth, k=60)
+  confusion_matrix <- cbind(fitted=as.character(predicted), actual=truth_2)
+  length(which(confusion_matrix[,1]==confusion_matrix[,2])) / length(truth_2)
+})
+
+mean(ten_fold)
+```

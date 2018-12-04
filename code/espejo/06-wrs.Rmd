@@ -1,0 +1,63 @@
+---
+title: "Wilcoxon Rank Sum Test"
+author: "Edie Espejo"
+date: "12/4/2018"
+output: html_document
+---
+
+```{r}
+full_data <- read.csv("../../data/genbank/05-full-data.csv")[,-1]
+head(full_data)
+```
+
+```{r}
+endos <- full_data[which(full_data$endometriosis=="Endometriosis"), -c(1:4)]
+nons  <- full_data[which(full_data$endometriosis!="Endometriosis"), -c(1:4)]
+```
+
+```{r}
+head(endos)
+```
+
+```{r}
+head(nons)
+```
+
+```{r}
+pvals <- sapply(1:ncol(endos), function(k) {
+  wilcox.test(x=endos[,k], y=nons[,k], alternative="two.sided", exact=FALSE)$p.value
+})
+```
+
+```{r}
+hist(pvals, xlab="Mann-Whitney p-values", col="grey7", main="Unadjusted p-values")
+abline(v=0.05, lwd=3, lty=1, col="indianred")
+```
+
+```{r}
+padj <- p.adjust(pvals, method="fdr")
+hist(padj, xlab="Mann-Whitney p-values", col="grey7", main="Unadjusted p-values")
+abline(v=0.05, lwd=3, lty=1, col="indianred")
+```
+
+```{r}
+df <- data.frame(which(padj<0.05), cbind(names(nons)[which(padj<0.05)], padj[which(padj<0.05)]))
+names(df) <- c("ix", "gene", "pval")
+df$pval <- as.numeric(as.character(df$pval))
+df <- df %>% arrange(pval)
+head(df, 30)
+```
+
+```{r}
+dim(df)
+```
+
+```{r}
+ix <- which(padj<0.05) + 4
+mw_genes <- full_data[,c(c(1:4), ix)]
+head(mw_genes)
+```
+
+```{r}
+write.csv(mw_genes, "../../data/genbank/06-mw-genes.csv")
+```
