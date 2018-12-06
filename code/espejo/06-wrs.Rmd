@@ -6,8 +6,27 @@ output: html_document
 ---
 
 ```{r}
+library(dplyr)
+```
+
+```{r}
 full_data <- read.csv("../../data/genbank/05-full-data.csv")[,-1]
 head(full_data)
+```
+
+```{r}
+subset <- full_data[,sample(x=c(5:ncol(full_data)), size=30)]
+# library(reshape2)
+# subset <- melt(subset)
+
+library(ggplot2)
+library(scales)
+library(tidyr)
+ggplot(gather(subset), aes(value)) + 
+    geom_histogram(bins = 10) + 
+    facet_wrap(~key, scales = 'free_x') +
+    theme_bw() +
+    xlab("") + ylab("") + ggtitle("Selected Gene Expression Histograms")
 ```
 
 ```{r}
@@ -36,7 +55,7 @@ abline(v=0.05, lwd=3, lty=1, col="indianred")
 
 ```{r}
 padj <- p.adjust(pvals, method="fdr")
-hist(padj, xlab="Mann-Whitney p-values", col="grey7", main="Unadjusted p-values")
+hist(padj, xlab="Mann-Whitney p-values", col="grey7", main="Adjusted p-values")
 abline(v=0.05, lwd=3, lty=1, col="indianred")
 ```
 
@@ -59,5 +78,5 @@ head(mw_genes)
 ```
 
 ```{r}
-write.csv(mw_genes, "../../data/genbank/06-mw-genes.csv")
+# write.csv(mw_genes, "../../data/genbank/06-mw-genes.csv")
 ```

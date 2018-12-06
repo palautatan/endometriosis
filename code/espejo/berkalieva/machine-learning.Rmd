@@ -1,7 +1,5 @@
 ---
-title: "machine-learning"
-author: "Asem Berkalieva"
-date: "12/1/2018"
+title: "80-20"
 output: pdf_document
 ---
 
@@ -201,7 +199,7 @@ To confirm that this optimization worked, I will apply the same parameters using
 ```{r}
 # try using Random Forest function
 set.seed(47)
-rf.function <- randomForest(severity ~ ., data = endo_train, mtry = 17, ntree = 400, importance = TRUE)
+rf.function <- randomForest(severity ~ ., data = endo_train, mtry = 65, ntree = 250, importance = TRUE)
 rf.function
 ```
 
@@ -216,6 +214,10 @@ predict_rf$table
 # print test accuracy
 rf_accuracy <- predict_rf$overall[1]
 rf_accuracy
+```
+
+```{r}
+varImpPlot(rf.final$finalModel)
 ```
 
 \newpage

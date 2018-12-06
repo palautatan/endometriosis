@@ -10,7 +10,7 @@ I am closely following this.
 https://biochem.wisc.edu/sites/default/files/facilities/bcrf/tutorials/R/R_Bioconductor/CH25/from_cel_files_to_gene_list.html#8_ranking_and_filtering_genes
 
 ```{r}
-starting_cut <- read.csv("../../data/genbank/full_data.csv", stringsAsFactors=FALSE)[,-1]
+starting_cut <- read.csv("../../data/genbank/05-full-data.csv", stringsAsFactors=FALSE)[,-1]
 head(starting_cut)
 ```
 
@@ -38,6 +38,13 @@ abline(h=0)
 ```
 
 ```{r}
+library(ggplot2)
+ma_df <- data.frame(cbind(a, d))
+
+ggplot(ma_df, aes(x=a, y=d)) + geom_point(col=alpha("black", 0.03)) + ylim(c(-8,8)) + ggtitle("MA Plot") + xlab("Expression Average") + ylab("Average Expression Difference") + theme_bw()
+```
+
+```{r}
 plot(a, d, col=alpha("cornflowerblue", 0.1), pch=19, ylim=c(-1,1), ylab="M", xlab="d", main="MA Plot")
 abline(h=0)
 ```
@@ -51,17 +58,24 @@ head(ending_cut)
 
 ```{r}
 library(dplyr)
-core_df <- cbind(core_genes, which(abs(d)>1))
-core_df <- data.frame(core_df) %>%
-  rename(log2expression=V2) %>% arrange(log2expression)
-head(core_df)
+core_df <- cbind(names(d)[which(abs(d)>1)], abs(d)[which(abs(d)>1)])
+core_df <- data.frame(core_df)
+core_df <- core_df %>% rename(log2expression=X2) %>% mutate(log2expression=as.numeric(as.character(log2expression))) %>% arrange(-log2expression)
+head(core_df, 12)
 ```
 
 ```{r}
 probes <- core_df %>% filter(grepl("probe", core_genes))
-probe_names <- as.character(probes %>% pull(core_genes))
+probe_names <- as.character(probes %>% pull(X1))
 probe_names <- gsub("probe_", "", probe_names)
 probe_names
+```
+
+
+
+
+```{r}
+length(unique(intersect(core_genes, as.character(df$gene))))
 ```
 
 **SCD**
@@ -74,5 +88,5 @@ http://gluegrant1.stanford.edu/~DIC/tissue_comparison/probeset.php?probeset=2250
 http://gluegrant1.stanford.edu/~DIC/tissue_comparison/probeset.php?probeset=225834_at
 
 ```{r}
-# write.csv(ending_cut, "../../data/genbank/core_data.csv")
+# write.csv(ending_cut, "../../data/genbank/06-something.....csv")
 ```
