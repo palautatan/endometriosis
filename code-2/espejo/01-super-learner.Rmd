@@ -1,0 +1,139 @@
+---
+title: "SuperLearner & ROC"
+output: html_document
+---
+
+```{r}
+library(readr)
+endo <- read_csv("../../data/machine-learning/two-fold/model-8020.csv")[,-1]
+names(endo)[1] <- "id"
+head(endo)
+```
+
+
+```{r}
+library(dplyr)
+gene_predictors <- endo %>% dplyr::select(-id, -tissue, -endometriosis, -severity)
+outcome         <- ifelse(endo %>% dplyr::select(endometriosis)=="Endometriosis", 1, 0)
+```
+
+
+
+# SuperLearner
+
+https://cran.r-project.org/web/packages/SuperLearner/vignettes/Guide-to-SuperLearner.html
+
+
+## Fitting the SuperLearner Models
+
+```{r}
+library(SuperLearner)
+
+# * GLMNET IS LASSO
+sl_lib <- c("SL.mean", "SL.knn", "SL.svm", "SL.glmnet", "SL.randomForest", "SL.lda",  "SL.nnet", "SL.bayesglm")
+```
+
+### NNLS Loss
+
+```{r}
+sl_fit_nnls_f <- SuperLearner(Y=outcome, X=gene_predictors, family=binomial(), SL.library=sl_lib)
+sl_fit_nnls_f
+```
+
+
+### AUC Loss
+
+
+```{r}
+sl_lib_auc <- c("SL.mean", "SL.svm", "SL.glmnet", "SL.randomForest", "SL.lda",  "SL.nnet", "SL.bayesglm")
+sl_fit_auc_f <- SuperLearner(Y=outcome, X=gene_predictors, family=binomial(), SL.library=sl_lib_auc, method = "method.AUC")
+sl_fit_auc_f
+```
+
+
+### NN log likelihood Loss
+
+```{r}
+sl_fit_ll_f <- SuperLearner(Y=outcome, X=gene_predictors, family=binomial(), SL.library=sl_lib, method = "method.NNloglik")
+sl_fit_ll_f
+```
+
+## Prediction
+
+```{r}
+endo_2 <- read_csv("../../data/machine-learning/two-fold/validation-8020.csv")[,-1]
+names(endo_2)[1] <- "id"
+gene_predictors_2 <- endo_2 %>% dplyr::select(-id, -tissue, -endometriosis, -severity)
+outcome_2         <- ifelse(endo_2 %>% dplyr::select(endometriosis)=="Endometriosis", 1, 0)
+```
+
+
+### NNLS Loss
+
+
+```{r}
+pred_nnls_f    <- predict(sl_fit_nnls_f, gene_predictors_2, onlySL=T)
+pred_nnls_df_f <- data.frame(cbind(round(pred_nnls_f$pred), outcome_2))
+sum(pred_nnls_df_f[,1]==pred_nnls_df_f[,2]) / nrow(pred_nnls_df_f)
+```
+
+### AUC Loss
+
+```{r}
+pred_auc_f    <- predict(sl_fit_auc_f, newdata=gene_predictors_2)
+pred_auc_df_f <- data.frame(cbind(round(pred_auc_f$pred), outcome_2))
+sum(pred_auc_df_f[,1]==pred_auc_df_f[,2]) / nrow(pred_auc_df_f)
+```
+
+### NN log-likelihood Loss
+
+
+```{r}
+pred_ll_f    <- predict(sl_fit_ll_f, gene_predictors_2, onlySL=T)
+pred_ll_df_f <- data.frame(cbind(round(pred_ll_f$pred), outcome_2))
+sum(pred_ll_df_f[,1]==pred_ll_df_f[,2]) / nrow(pred_ll_df_f)
+```
+
+### Comparison table
+
+| AUC            | NNLS        | NNLL      |
+|----------------|------------|-----------|
+| 0.8666667      | 0.7333333  | 0.8666667 |
+
+
+# ROC
+https://cran.r-project.org/web/packages/plotROC/vignettes/examples.html
+
+```{r}
+library(ROCR)
+plot_auc <- function(performance_s4_obj, title="") {
+  require(ggplot2)
+  perf_auc_rocr_df <- data.frame(cbind(x=unlist(performance_s4_obj@x.values),
+                                       y=unlist(performance_s4_obj@y.values)))
+  ggplot2::ggplot(perf_auc_rocr_df, aes(x=x, y=y)) + 
+    geom_point() + 
+    geom_line() + 
+    xlab("Specificity") + 
+    ylab("Sensitivity") +
+    ggtitle(title)
+}
+```
+
+```{r}
+pred_auc_rocr_f <- prediction(predictions=pred_auc_f$pred, labels=outcome_2)
+perf_auc_rocr_f <- performance(pred_auc_rocr_f,"tpr","fpr")
+plot_auc(perf_auc_rocr_f, title="ROC under SuperLearner AUC Loss")
+```
+
+```{r}
+pred_nnls_rocr_f <- prediction(predictions=pred_nnls_f$pred, labels=outcome_2)
+perf_nnls_rocr_f <- performance(pred_nnls_rocr_f,"tpr","fpr")
+plot_auc(perf_nnls_rocr_f, title="ROC under SuperLearner NNLS Loss")
+```
+
+```{r}
+pred_ll_rocr_f <- prediction(predictions=pred_ll_f$pred, labels=outcome_2)
+perf_ll_rocr_f <- performance(pred_ll_rocr_f,"tpr","fpr")
+plot_auc(perf_ll_rocr_f, title="ROC under SuperLearner NNLL Loss")
+```
+
