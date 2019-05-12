@@ -1,0 +1,74 @@
+---
+title: "Neural Net"
+output: html_document
+---
+
+## Training Dataset
+```{r}
+library(readr)
+endo <- read_csv("../../data/machine-learning/two-fold/model-8020.csv")[,-1]
+names(endo)[1] <- "id"
+head(endo)
+```
+
+```{r}
+library(dplyr)
+gene_predictors <- endo %>% dplyr::select(-id, -tissue, -endometriosis, -severity)
+outcome         <- ifelse(endo %>% dplyr::select(endometriosis)=="Endometriosis", 1, 0)
+```
+
+
+## Prediction Dataset
+
+```{r}
+endo_2 <- read_csv("../../data/machine-learning/two-fold/validation-8020.csv")[,-1]
+names(endo_2)[1] <- "id"
+gene_predictors_2 <- endo_2 %>% dplyr::select(-id, -tissue, -endometriosis, -severity)
+outcome_2         <- ifelse(endo_2 %>% dplyr::select(endometriosis)=="Endometriosis", 1, 0)
+```
+
+## Fitting the neural network
+
+https://visualstudiomagazine.com/articles/2016/11/01/using-the-r-nnet-package.aspx
+
+https://stats.stackexchange.com/questions/44331/interpreting-the-neural-network-output-in-r
+
+## Size=1
+
+```{r}
+auc_nnet_1 <- nnet::nnet(x=gene_predictors, y=outcome, size=1, trace = FALSE, maxit=500, linout=FALSE)
+# summary(auc_nnet)
+```
+
+```{r}
+pred_1       <- predict(auc_nnet_1, newdata=gene_predictors_2, type="raw")
+pred_1_df <- data.frame(cbind(round(pred_1), outcome_2))
+sum(pred_1_df[,1]==pred_1_df[,2]) / nrow(pred_1_df)
+```
+
+### Size=2
+
+```{r}
+auc_nnet_2 <- nnet::nnet(x=gene_predictors, y=outcome, size=2, trace = FALSE, maxit=500, linout=FALSE)
+# summary(auc_nnet)
+```
+
+```{r}
+pred_2       <- predict(auc_nnet_2, newdata=gene_predictors_2, type="raw")
+pred_2_df <- data.frame(cbind(round(pred_2), outcome_2))
+sum(pred_2_df[,1]==pred_2_df[,2]) / nrow(pred_2_df)
+```
+
+
+
+
+
+
+
+
+
+
+```{r}
+auc_nnet_3 <- nnet::nnet(x=gene_predictors, y=outcome, size=3, trace = FALSE, maxit=500, linout=FALSE)
+# summary(auc_nnet)
+```

@@ -1,13 +1,27 @@
 ---
-title: "SuperLearner & ROC for 2-fold genes"
+title: "SuperLearner & ROC for Mann-Whitney genes"
 output: html_document
 ---
 
 ```{r}
 library(readr)
-endo <- read_csv("../../data/machine-learning/two-fold/model-8020.csv")[,-1]
+endo <- read_csv("../../data/machine-learning/mann-whitney/model-8020.csv")[,-1]
 names(endo)[1] <- "id"
 head(endo)
+dim(endo)
+```
+
+
+# Removal of highly correlated variables
+
+https://stackoverflow.com/questions/18275639/remove-highly-correlated-variables
+```{r}
+library(caret)
+df2 <- cor(gene_predictors)
+hc  <- findCorrelation(df2, cutoff=0.8) # putt any value as a "cutoff" 
+hc  <- sort(hc)
+endo <- gene_predictors[,-c(hc)]
+dim(endo)
 ```
 
 
@@ -38,7 +52,7 @@ sl_lib_auc <- c("SL.mean", "SL.svm", "SL.glmnet", "SL.randomForest", "SL.lda",  
 ### NNLS Loss
 
 ```{r}
-sl_fit_nnls_f <- SuperLearner(Y=outcome, X=gene_predictors, family=binomial(), SL.library=sl_lib_auc, cvControl=list(V=7))
+sl_fit_nnls_f <- SuperLearner(Y=outcome, X=gene_predictors, family=binomial(), SL.library=sl_lib, cvControl=list(V=7))
 sl_fit_nnls_f
 ```
 
@@ -62,7 +76,7 @@ sl_fit_ll_f
 ## Prediction
 
 ```{r}
-endo_2 <- read_csv("../../data/machine-learning/two-fold/validation-8020.csv")[,-1]
+endo_2 <- read_csv("../../data/machine-learning/mann-whitney/validation-8020.csv")[,-1]
 names(endo_2)[1] <- "id"
 gene_predictors_2 <- endo_2 %>% dplyr::select(-id, -tissue, -endometriosis, -severity)
 outcome_2         <- ifelse(endo_2 %>% dplyr::select(endometriosis)=="Endometriosis", 1, 0)
@@ -119,8 +133,8 @@ plot_auc <- function(performance_s4_obj, title="") {
   ggplot2::ggplot(perf_auc_rocr_df, aes(x=x, y=y)) + 
     geom_point() + 
     geom_line() + 
-    xlab("False Positive Rate") + 
-    ylab("True Positive Rate") +
+    xlab("Specificity") + 
+    ylab("Sensitivity") +
     ggtitle(title)
 }
 ```
@@ -176,152 +190,4 @@ summary(cv_auc)
 
 ```{r}
 cv_auc$AllSL
-```
-
-# Bootstrap the AUC
-
-```{r}
-new_ix        <- sample(x=1:nrow(endo_2), size=nrow(endo_2), replace=TRUE)
-boot_sample   <- gene_predictors_2[new_ix,]
-boot_outcomes <- outcome_2[new_ix,]
-```
-
-```{r}
-auc_func <- function(sl_fit_obj, predictors, outcomes) {
-  predict_obj     <- predict(sl_fit_obj, newdata=predictors, type="class")
-  predict2_obj    <- prediction(predictions=as.numeric(predict_obj$pred), labels=as.numeric(outcomes))
-  performance_obj <- performance(predict2_obj, measure="auc")
-  performance_obj@y.values[[1]]
-}
-```
-
-```{r}
-auc_func(sl_fit_auc_f, boot_sample, boot_outcomes)
-```
-
-
-
-```{r}
-# dim(outcome_2)
-# dim(gene_predictors_2)
-```
-
-```{r}
-boot_auc <- lapply(1:1000, function(x) {
-      new_ix        <- sample(x=1:nrow(endo_2), size=nrow(endo_2), replace=TRUE)
-      boot_sample   <- gene_predictors_2[new_ix,]
-      boot_outcomes <- outcome_2[new_ix,]
-      auc_func(sl_fit_auc_f, boot_sample, boot_outcomes)
-})
-```
-
-```{r}
-quantile(unlist(boot_auc), 0.025)
-quantile(unlist(boot_auc), 0.975)
-```
-
-```{r}
-summary(unlist(boot_auc))
-```
-
-```{r}
-ggplot(data.frame(boot=unlist(boot_auc)), aes(x=boot)) +
-  geom_histogram(binwidth=0.025, col="black", fill="pink") +
-  ggtitle("Bootstrap AUC values under AUC loss") +
-  xlab("Bootstrap AUC")
-```
-
-
-
-```{r}
-boot_auc_2 <- lapply(1:1000, function(x) {
-      new_ix        <- sample(x=1:nrow(endo_2), size=nrow(endo_2), replace=TRUE)
-      boot_sample   <- gene_predictors_2[new_ix,]
-      boot_outcomes <- outcome_2[new_ix,]
-      auc_func(sl_fit_ll_f, boot_sample, boot_outcomes)
-})
-```
-
-
-```{r}
-ggplot(data.frame(boot=unlist(boot_auc_2)), aes(x=boot)) +
-  geom_histogram(binwidth=0.025, col="black", fill="pink") +
-  ggtitle("Bootstrap AUC values under log-likelihood loss") +
-  xlab("Bootstrap AUC")
-```
-
-```{r}
-quantile(unlist(boot_auc_2), 0.025)
-quantile(unlist(boot_auc_2), 0.975)
-```
-
-```{r}
-summary(unlist(boot_auc_2))
-```
-
-```{r}
-boot_auc_3 <- lapply(1:1000, function(x) {
-      new_ix        <- sample(x=1:nrow(endo_2), size=nrow(endo_2), replace=TRUE)
-      boot_sample   <- gene_predictors_2[new_ix,]
-      boot_outcomes <- outcome_2[new_ix,]
-      auc_func(sl_fit_nnls_f, boot_sample, boot_outcomes)
-})
-```
-
-```{r}
-ggplot(data.frame(boot=unlist(boot_auc_3)), aes(x=boot)) +
-  geom_histogram(binwidth=0.025, col="black", fill="pink") +
-  ggtitle("Bootstrap AUC values under least-squares loss") +
-  xlab("Bootstrap AUC")
-```
-
-```{r}
-quantile(unlist(boot_auc_3), 0.025)
-quantile(unlist(boot_auc_3), 0.975)
-```
-
-```{r}
-summary(unlist(boot_auc_3))
-```
-
-# Probability plot
-
-```{r}
-pred_auc_df_f <- data.frame(pred_auc_f$pred, outcome_2)
-```
-
-```{r}
-pred_auc_df_f %>% group_by(endometriosis) %>% summarize(n=n())
-```
-
-```{r}
-pred_auc_df <- pred_auc_df_f %>% mutate(endometriosis=ifelse(endometriosis==0, "No Endometriosis", "Endometriosis"))
-
-ggplot(pred_auc_df, aes(x=endometriosis, group=endometriosis, y=pred_auc_f.pred, fill=endometriosis)) + 
-  geom_point() +
-  geom_boxplot() + 
-  ylab("predicted probabilities") + 
-  scale_fill_manual(values=c("pink", "pink3"))
-```
-
-# CV AUC
-```{r}
-# install.packages("cvAUC")
-library(cvAUC)
-# cv_auc_output <- cvAUC(round(pred_nnls_f$pred), outcome_2)
-ci.cvAUC(round(pred_nnls_f$pred), outcome_2, confidence=0.95)
-```
-
-```{r}
-# install.packages("cvAUC")
-# library(cvAUC)
-# cvAUC(round(pred_auc_f$pred), outcome_2)
-ci.cvAUC(round(pred_auc_f$pred), outcome_2, confidence=0.95)
-```
-
-```{r}
-# install.packages("cvAUC")
-# library(cvAUC)
-# cvAUC(round(pred_auc_f$pred), outcome_2)
-ci.cvAUC(round(pred_ll_f$pred), outcome_2, confidence=0.95)
 ```
